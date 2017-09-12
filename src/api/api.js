@@ -1,0 +1,26 @@
+const baseUrl = 'http://localhost:8000';
+
+export function fetchHint() {
+    return fetch(`${baseUrl}/quest/hint`)
+        .then(response => response.json())
+}
+
+export function postAnswer(answer) {
+    const options = {
+        method: "POST",
+        headers: { 'Content-Type': 'text/html' },
+        body: answer
+    };
+    return fetch(`${baseUrl}/quest`, options)
+        .then(response => response.json())
+}
+
+export function fetchPenaltiesState() {
+    return fetch(`${baseUrl}/quest/currentState`)
+        .then(response => response.json())
+}
+
+export function fetchQuestion() {
+    return fetch(`${baseUrl}/quest`)
+        .then(response => response.json())
+}
