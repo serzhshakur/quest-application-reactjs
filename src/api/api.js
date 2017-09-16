@@ -23,4 +23,8 @@ export function fetchPenaltiesState() {
 export function fetchQuestion() {
     return fetch(`${baseUrl}/quest`)
         .then(response => response.json())
+        .then(({ question: q }) => ({
+            question: q.text,
+            images: q.images && q.images.map(image => `${baseUrl}/${image}`)
+        }))
 }

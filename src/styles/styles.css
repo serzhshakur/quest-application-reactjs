@@ -81,10 +81,22 @@ body {
     margin-top: 7vh;
 }
 
-.image-block-multiple {
-    width: 40vw;
+.question-img {
     height: auto;
     margin-top: 2vh;
+}
+
+.question-img:first-child:nth-last-child(6), .question-img:first-child:nth-last-child(6) ~ .question-img {
+    width: 30%;
+}
+.question-img:first-child:nth-last-child(4), .question-img:first-child:nth-last-child(4) ~ .question-img {
+    width: 45%;
+}
+.question-img:first-child:nth-last-child(3), .question-img:first-child:nth-last-child(3) ~ .question-img {
+    width: 30%;
+}
+.question-img:first-child:nth-last-child(2), .question-img:first-child:nth-last-child(2) ~ .question-img {
+    width: 45%;
 }
 
 #spinner, #hint {
@@ -189,7 +201,6 @@ svg {
 }
 
 .modal {
-    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
