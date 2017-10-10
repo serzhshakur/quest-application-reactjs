@@ -1,5 +1,19 @@
 const baseUrl = 'http://localhost:8000';
 
+
+export function validateId(id) {
+    const options = {
+        method: "POST",
+        headers: { 'Content-Type': 'text/html' },
+        body: id,
+        credentials: 'include',
+        timeout: 1000
+        // credentials: 'same-origin'
+    };
+    return fetch(`${baseUrl}/validate/`, options)
+    .then(response => console.log(document.cookie))
+}
+
 export function fetchHint() {
     return fetch(`${baseUrl}/quest/hint`)
         .then(response => response.json())
