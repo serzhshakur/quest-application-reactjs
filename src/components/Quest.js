@@ -4,8 +4,9 @@ import Question from './Question.js'
 import AnswerForm from './AnswerForm.js'
 import HintContainer from './HintContainer.js'
 import PenaltiesContainer from './PenaltiesContainer.js'
-import styles from '../styles/styles.css'
 import { postAnswer, fetchPenaltiesState } from '../api/api.js'
+import { Redirect } from 'react-router-dom'
+import styles from '../styles/styles.css'
 
 
 class Quest extends React.Component {
@@ -15,9 +16,10 @@ class Quest extends React.Component {
             question: '',
             answer: '',
             isAnswerCorrect: true,
-            currentQuestion: 0,
+            questionNumber: 0,
             wrongAnswers: 0,
-            hintRetrievals: 0
+            hintRetrievals: 0,
+            isLastQuestion: false
         }
     }
 
@@ -30,8 +32,9 @@ class Quest extends React.Component {
         postAnswer(this.state.answer).then(response => this.setState(
             {
                 wrongAnswers: response.wrongAnswers,
-                currentQuestion: response.currentQuestion,
-                isAnswerCorrect: response.isCorrect
+                questionNumber: response.questionNumber,
+                isAnswerCorrect: response.isCorrect,
+                isLastQuestion: response.isLastQuestion
             }
         ))
     }
@@ -52,16 +55,16 @@ class Quest extends React.Component {
     }
 
     render() {
-        return (
+        return this.state.isLastQuestion ? (<Redirect to='/finish' />) : (
             <div id='questions-section'>
-                <Question currentQuestion={this.state.currentQuestion} />
+                <Question questionNumber={this.state.questionNumber} />
                 <AnswerForm
-                    currentQuestion={this.state.currentQuestion}
+                    questionNumber={this.state.questionNumber}
                     isAnswerCorrect={this.state.isAnswerCorrect}
                     onInput={this.onInput.bind(this)}
                     submitAnswer={this.submitAnswer.bind(this)}
                 />
-                <HintContainer updateHintRetrievals={this.updateHintRetrievals.bind(this)} />
+                <HintContainer questionNumber={this.state.questionNumber} updateHintRetrievals={this.updateHintRetrievals.bind(this)} />
                 <PenaltiesContainer wrongAnswers={this.state.wrongAnswers} hintRetrievals={this.state.hintRetrievals} />
             </div>
         )

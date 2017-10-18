@@ -19,7 +19,7 @@ class Question extends React.PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.currentQuestion > this.props.currentQuestion) {
+        if (nextProps.questionNumber > this.props.questionNumber) {
             this.updateQuestion()
         }
     }

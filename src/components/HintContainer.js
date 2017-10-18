@@ -9,11 +9,26 @@ import { fetchHint } from '../api/api.js'
 class HintContainer extends React.PureComponent {
     constructor(props) {
         super(props)
-        this.state = {
+        this.state = this.getInitialState()
+    }
+
+    getInitialState() {
+        const initialState = {
             isHintRequested: false,
             timeout: 3,
             hint: null
         }
+        return initialState
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.questionNumber > this.props.questionNumber) {
+            this.resetState()
+        }
+    }
+
+    resetState() {
+        this.setState(this.getInitialState())
     }
 
     showHint() {
