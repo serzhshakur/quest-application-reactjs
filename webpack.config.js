@@ -5,13 +5,26 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'index_bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/'
     },
     module: {
         rules: [
-            { test: /\.jsx?$/, use: 'babel-loader' },
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env', 'react', 'stage-2']
+                    }
+                },
+            },
             { test: /\.css$/, use: ['style-loader', 'css-loader'] }
         ]
+    },
+    devServer: {
+        historyApiFallback: true,
     },
     plugins: [new HtmlWebpackPlugin(
         {

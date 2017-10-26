@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../styles/answerInput.css'
+import styles from '../styles/input.css'
 
 class AnswerForm extends React.PureComponent {
 
@@ -12,7 +12,7 @@ class AnswerForm extends React.PureComponent {
 
     shouldComponentUpdate(nextProps, nextState) {
         if (
-            nextProps.currentQuestion > this.props.currentQuestion
+            nextProps.questionNumber > this.props.questionNumber
             || nextProps.isAnswerCorrect !== this.props.isAnswerCorrect
             || nextState.isInputActive !== this.state.isInputActive
         ) { return true }
@@ -20,18 +20,15 @@ class AnswerForm extends React.PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.currentQuestion > this.props.currentQuestion) {
+        if (nextProps.questionNumber > this.props.questionNumber) {
             this.refs.answerInput.value = ''
         }
-    }
-
-    submit(e) {
-        this.props.submitAnswer(e)
     }
 
     onFocus() {
         this.setState({ isInputActive: true })
     }
+    
     onBlur() {
         this.setState({ isInputActive: false })
     }
@@ -49,7 +46,7 @@ class AnswerForm extends React.PureComponent {
                     id='answer-input'
                     className={classToAppend}
                 />
-                <button onClick={this.submit.bind(this)} id='submit'>Проверить</button>
+                <button onClick={this.props.submitAnswer} id='submit'>Проверить</button>
             </form>
         )
     }
