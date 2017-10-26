@@ -7,29 +7,9 @@ class Question extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            question: '',
-            images: [],
             isModalOpen: false,
             imgSrc: ''
         }
-    }
-
-    componentWillMount() {
-        this.updateQuestion()
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.questionNumber > this.props.questionNumber) {
-            this.updateQuestion()
-        }
-    }
-
-    updateQuestion() {
-        fetchQuestion()
-            .then(response => this.setState({
-                question: response.question,
-                images: response.images
-            }))
     }
 
     openModal(imgSrc) {
@@ -41,10 +21,11 @@ class Question extends React.PureComponent {
     }
 
     render() {
-        const { images, isModalOpen, imgSrc } = this.state;
+        const { isModalOpen, imgSrc } = this.state;
+        const { images, question } = this.props.question;
         return (
             <div>
-                <div id='question'>{this.state.question}</div>
+                <div id='question'>{question}</div>
 
                 {images &&
                     (<div>

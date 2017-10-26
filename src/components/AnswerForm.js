@@ -25,13 +25,10 @@ class AnswerForm extends React.PureComponent {
         }
     }
 
-    submit(e) {
-        this.props.submitAnswer(e)
-    }
-
     onFocus() {
         this.setState({ isInputActive: true })
     }
+    
     onBlur() {
         this.setState({ isInputActive: false })
     }
@@ -49,7 +46,7 @@ class AnswerForm extends React.PureComponent {
                     id='answer-input'
                     className={classToAppend}
                 />
-                <button onClick={this.submit.bind(this)} id='submit'>Проверить</button>
+                <button onClick={this.props.submitAnswer} id='submit'>Проверить</button>
             </form>
         )
     }

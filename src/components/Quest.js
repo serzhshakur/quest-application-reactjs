@@ -4,7 +4,7 @@ import Question from './Question.js'
 import AnswerForm from './AnswerForm.js'
 import HintContainer from './HintContainer.js'
 import PenaltiesContainer from './PenaltiesContainer.js'
-import { postAnswer, fetchPenaltiesState } from '../api/api.js'
+import { postAnswer, fetchPenaltiesState, fetchQuestion } from '../api/api.js'
 import { Redirect } from 'react-router-dom'
 import styles from '../styles/styles.css'
 
@@ -13,36 +13,45 @@ class Quest extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            question: '',
+            question: {},
             answer: '',
             isAnswerCorrect: true,
             questionNumber: 0,
             wrongAnswers: 0,
             hintRetrievals: 0,
-            isLastQuestion: false
+            isEnd: false
         }
+    }
+
+    updateQuestion() {
+        fetchQuestion()
+            .then(response => this.setState(
+                {
+                    isEnd: response.isEnd,
+                    question: response.question,
+                    wrongAnswers: response.wrongAnswers,
+                    hintRetrievals: response.hintRetrievals
+                }
+            ))
     }
 
     onInput(e) {
         this.setState({ answer: e.target.value })
     }
 
-    submitAnswer(e, callback) {
+    submitAnswer(e) {
         e.preventDefault();
-        postAnswer(this.state.answer).then(response => this.setState(
-            {
-                wrongAnswers: response.wrongAnswers,
-                questionNumber: response.questionNumber,
-                isAnswerCorrect: response.isCorrect,
-                isLastQuestion: response.isLastQuestion
+        postAnswer(this.state.answer).then(response => {
+            this.setState(
+                {
+                    wrongAnswers: response.wrongAnswers,
+                    questionNumber: response.questionNumber,
+                    isAnswerCorrect: response.isCorrect
+                }
+            )
+            if (response.isCorrect) {
+                this.updateQuestion()
             }
-        ))
-    }
-
-    updatePenaltiesState(source) {
-        this.setState({
-            wrongAnswers: source.wrongAnswers,
-            hintRetrievals: source.hintRetrievals
         })
     }
 
@@ -51,13 +60,13 @@ class Quest extends React.Component {
     }
 
     componentDidMount() {
-        fetchPenaltiesState().then(response => this.updatePenaltiesState(response))
+        this.updateQuestion()
     }
 
     render() {
-        return this.state.isLastQuestion ? (<Redirect to='/finish' />) : (
+        return this.state.isEnd ? (<Redirect to='/finish' />) : (
             <div id='questions-section'>
-                <Question questionNumber={this.state.questionNumber} />
+                <Question question={this.state.question} />
                 <AnswerForm
                     questionNumber={this.state.questionNumber}
                     isAnswerCorrect={this.state.isAnswerCorrect}
