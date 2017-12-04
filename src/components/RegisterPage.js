@@ -10,7 +10,7 @@ export default class extends PureComponent {
         this.state = {
             id: '',
             isIncorrectCode: false,
-            isAlreadyRegistered: false
+            isRegistered: false
         }
     }
 
@@ -21,11 +21,10 @@ export default class extends PureComponent {
             .then(r => {
                 if (r.status >= 400) {
                     this.setState({ isIncorrectCode: true })
-
                 }
                 else {
                     onRegister()
-                    this.setState({ isAlreadyRegistered: true })
+                    this.setState({ isRegistered: true })
                 }
             }
             )
@@ -39,7 +38,7 @@ export default class extends PureComponent {
     }
 
     render() {
-        return this.state.isAlreadyRegistered ? (<Redirect to='/' />) : (
+        return this.state.isRegistered ? (<Redirect to='/' />) : (
             <div className="regular-page">
                 <p>Приветствуем вас!</p>
                 <p>Для начала квеста введите пожалуйста полученный код</p>

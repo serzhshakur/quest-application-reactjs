@@ -12,7 +12,7 @@ export function validateId(id) {
         // }
         // credentials: 'same-origin'
     };
-    return fetch(`${baseUrl}/validate/`, options)
+    return fetch(`${baseUrl}/sign-in/`, options)
 }
 
 export function fetchHint() {
@@ -28,11 +28,6 @@ export function postAnswer(answer) {
         credentials: 'include'
     };
     return fetch(`${baseUrl}/quest`, options)
-        .then(response => response.json())
-}
-
-export function fetchPenaltiesState() {
-    return fetch(`${baseUrl}/quest/currentState`, { credentials: 'include' })
         .then(response => response.json())
 }
 

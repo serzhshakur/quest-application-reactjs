@@ -1,6 +1,4 @@
 import React from 'react'
 
 
-const Spinner = props => <div id='spinner' />
-
-export default Spinner;
+export default props => <div id='spinner' />
