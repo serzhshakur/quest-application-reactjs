@@ -4,7 +4,7 @@ import Question from './Question.js'
 import AnswerForm from './AnswerForm.js'
 import HintContainer from './HintContainer.js'
 import PenaltiesContainer from './PenaltiesContainer.js'
-import { postAnswer, fetchPenaltiesState, fetchQuestion } from '../api/api.js'
+import { postAnswer, fetchQuestion } from '../api/api.js'
 import { Redirect } from 'react-router-dom'
 import styles from '../styles/styles.css'
 
@@ -42,14 +42,15 @@ class Quest extends React.Component {
     submitAnswer(e) {
         e.preventDefault();
         postAnswer(this.state.answer).then(response => {
+            const isAnswerCorrect = response.questionNumber > this.state.questionNumber;
             this.setState(
                 {
-                    wrongAnswers: response.wrongAnswers,
+                    isAnswerCorrect: isAnswerCorrect,
                     questionNumber: response.questionNumber,
-                    isAnswerCorrect: response.isCorrect
+                    wrongAnswers: response.wrongAnswers
                 }
             )
-            if (response.isCorrect) {
+            if (isAnswerCorrect) {
                 this.updateQuestion()
             }
         })
