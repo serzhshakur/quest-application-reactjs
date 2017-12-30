@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -26,12 +27,15 @@ module.exports = {
             }
         ]
     },
-    plugins: [new HtmlWebpackPlugin(
-        {
+    plugins: [
+        new HtmlWebpackPlugin({
             template: 'src/index.html',
             favicon: 'src/assets/icon.png'
-        }
-    )],
+        }),
+        new webpack.DefinePlugin({
+            '__API_HOST': JSON.stringify(process.env.QUESTS_API_HOST)
+        })
+    ],
     devServer: {
         historyApiFallback: true,
     }

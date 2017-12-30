@@ -1,4 +1,4 @@
-const baseUrl = 'http://my.localhost.com:8000';
+const baseUrl = __API_HOST;
 
 
 export function validateId(id) {
@@ -16,7 +16,7 @@ export function validateId(id) {
 }
 
 export function fetchHint() {
-    return fetch(`${baseUrl}/quest/hint`, { credentials: 'include' })
+    return fetch(`${baseUrl}/questions/hint`, { credentials: 'include' })
         .then(response => response.json())
 }
 
@@ -27,12 +27,12 @@ export function postAnswer(answer) {
         body: answer,
         credentials: 'include'
     };
-    return fetch(`${baseUrl}/quest`, options)
+    return fetch(`${baseUrl}/questions`, options)
         .then(response => response.json())
 }
 
 export function fetchQuestion() {
-    return fetch(`${baseUrl}/quest`, { credentials: 'include' })
+    return fetch(`${baseUrl}/questions`, { credentials: 'include' })
         .then(response => response.json())
         .then(({ question, ...rest }) => ({
             question: question && {

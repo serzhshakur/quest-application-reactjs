@@ -15,19 +15,23 @@ export default class extends PureComponent {
     }
 
     register(e) {
-        const onRegister = this.props.onRegister
         e.preventDefault();
-        validateId(this.state.id)
-            .then(r => {
-                if (r.status >= 400) {
-                    this.setState({ isIncorrectCode: true })
-                }
-                else {
-                    onRegister()
-                    this.setState({ isRegistered: true })
-                }
-            }
-            )
+        const onRegister = this.props.onRegister
+        const id = this.state.id;
+        if (!id) {
+            this.setState({ isIncorrectCode: true })
+        } else {
+            validateId(id)
+                .then(r => {
+                    if (r.status >= 400) {
+                        this.setState({ isIncorrectCode: true })
+                    }
+                    else {
+                        onRegister()
+                        this.setState({ isRegistered: true })
+                    }
+                })
+        }
     }
 
     onInput(e) {

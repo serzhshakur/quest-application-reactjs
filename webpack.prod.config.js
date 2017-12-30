@@ -37,7 +37,8 @@ module.exports = {
         new CleanWebpackPlugin(['dist']),
         new UglifyJSPlugin(),
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
+            'process.env.NODE_ENV': JSON.stringify('production'),
+            '__API_HOST': JSON.stringify(process.env.QUESTS_API_HOST_PROD)
         }),
         new HtmlWebpackPlugin(
             {

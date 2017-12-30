@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../styles/input.css'
 
-class AnswerForm extends React.PureComponent {
+class AnswerForm extends React.Component {
 
     constructor(props) {
         super(props)
