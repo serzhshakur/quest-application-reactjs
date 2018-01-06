@@ -22,7 +22,7 @@ class Question extends React.PureComponent {
 
     render() {
         const { isModalOpen, imgSrc } = this.state;
-        const { images, question } = this.props.question;
+        const { text: question, images } = this.props.question;
         return (
             <div>
                 <div id='question'>{question}</div>

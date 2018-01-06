@@ -34,11 +34,4 @@ export function postAnswer(answer) {
 export function fetchQuestion() {
     return fetch(`${baseUrl}/questions`, { credentials: 'include' })
         .then(response => response.json())
-        .then(({ question, ...rest }) => ({
-            question: question && {
-                question: question.text,
-                images: question.images && question.images.map(image => `${baseUrl}/${image}`)
-            },
-            ...rest
-        }))
 }
