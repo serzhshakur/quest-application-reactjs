@@ -17,7 +17,10 @@ class Question extends React.PureComponent {
     }
 
     closeModal() {
-        this.setState({ isModalOpen: false });
+        this.setState({
+            isModalOpen: false,
+            imgSrc: ''
+        });
     }
 
     render() {
