@@ -16,7 +16,7 @@ class WelcomePage extends React.PureComponent {
 
     render() {
         return (<div id='introductory-section' className="regular-page">
-            <div>{this.state.introText}</div>
+            <p>{this.state.introText}</p>
             <div>
                 <button className="regular-button">
                     <Link to='/quest'>Вперед</Link>

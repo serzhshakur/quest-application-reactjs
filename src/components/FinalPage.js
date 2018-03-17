@@ -15,7 +15,7 @@ class FinalPage extends React.PureComponent {
 
     render() {
         return (<div className="regular-page">
-            <div>{this.state.finalWordsText}</div>
+            <p>{this.state.finalWordsText}</p>
         </div>
         )
     }
