@@ -1,12 +1,24 @@
 import React from 'react'
+import { fetchFinalWords } from '../api/api.js'
 
-export default () => (
-    <div className="regular-page">
-        <p>
-            <b>Наши поздравления!</b>
-        </p>
-        <p>Ты успешно справился с первым испытанием!</p>
-        <p>Надеюсь, ты запомнил число из своего последнего ответа? Оно тебе еще пригодится.</p>
-        <p>Теперь можешь смело отправляться к своей невесте на встречу новым заданиям!</p>
-    </div>
-)
+class FinalPage extends React.PureComponent {
+    constructor(props) {
+        super(props)
+        this.state = {
+            finalWordsText: ''
+        }
+    }
+
+    componentDidMount() {
+        fetchFinalWords().then(text => this.setState({ finalWordsText: text }))
+    }
+
+    render() {
+        return (<div className="regular-page">
+            <div>{this.state.finalWordsText}</div>
+        </div>
+        )
+    }
+}
+
+export default FinalPage

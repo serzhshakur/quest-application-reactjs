@@ -1,18 +1,30 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { fetchIntro } from '../api/api.js'
 
-export default () => (
-    <div id='introductory-section' className="regular-page">
-        <p>
-            <b>Привет!</b>
-        </p>
-        <p>Поздравляю, ты уже без пяти минут муж! Путь к сердцу твоей избранницы был без сомнения труден. Но по мнению некоторых
-        ты потрудился недостаточно. Поэтому предлагаю в последний раз проверить свои силы и окончательно доказать всем,
-        что ты достоен своей избранницы!</p>
-        <div>
-            <button className="regular-button">
-                <Link to='/quest'>Вперед</Link>
-            </button>
+class WelcomePage extends React.PureComponent {
+    constructor(props) {
+        super(props)
+        this.state = {
+            introText: ''
+        }
+    }
+
+    componentDidMount() {
+        fetchIntro().then(text => this.setState({ introText: text }))
+    }
+
+    render() {
+        return (<div id='introductory-section' className="regular-page">
+            <div>{this.state.introText}</div>
+            <div>
+                <button className="regular-button">
+                    <Link to='/quest'>Вперед</Link>
+                </button>
+            </div>
         </div>
-    </div>
-)
+        )
+    }
+}
+
+export default WelcomePage

@@ -20,6 +20,16 @@ export function fetchHint() {
         .then(response => response.json())
 }
 
+export function fetchIntro() {
+    return fetch(`${baseUrl}/questions/intro`, { credentials: 'include' })
+        .then(response => response.text())
+}
+
+export function fetchFinalWords() {
+    return fetch(`${baseUrl}/questions/final`, { credentials: 'include' })
+        .then(response => response.text())
+}
+
 export function postAnswer(answer) {
     const options = {
         method: "POST",
