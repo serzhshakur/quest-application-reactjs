@@ -45,3 +45,34 @@ export function fetchQuestion() {
     return fetch(`${baseUrl}/questions`, { credentials: 'include' })
         .then(response => response.json())
 }
+
+export function fetchQuests() {
+    return fetch(`${baseUrl}/quests`, { credentials: 'include' })
+        .then(response => response.json())
+}
+
+export function fetchQuest(questId) {
+    return fetch(`${baseUrl}/quests/${questId}`, { credentials: 'include' })
+        .then(response => response.json())
+}
+
+export function postQuest(questDetails) {
+    const options = {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(questDetails),
+        credentials: 'include'
+    }
+    return fetch(`${baseUrl}/quests`, options)
+}
+
+export function updateQuest(questId, questDetails) {
+    const options = {
+        method: "PUT",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(questDetails),
+        credentials: 'include'
+    }
+    return fetch(`${baseUrl}/quests/${questId}`, options)
+}
+

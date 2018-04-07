@@ -1,0 +1,72 @@
+:root {
+  --base-font-size: 5vw;
+  --base-font-color: #073c4e;
+}
+
+.admin-page {
+  margin: 8vh 2vw;
+  padding: 1vh 1vw;
+}
+
+.admin-page a {
+  text-decoration: none;
+}
+
+.admin-button {
+  background-color: #7a9d96;
+  border: 0px;
+  margin: 2vh 1vw;
+  padding: 1.3vh 4vw;
+  cursor: pointer;
+  font-size: var(--base-font-size);
+}
+
+.admin-button, .admin-button a {
+  color: #fff;
+}
+
+.quests-item {
+  margin: 1vh 0vh;
+  cursor: pointer;
+  border-bottom: 1px dotted;
+  width: max-content;
+}
+
+.quests-item a {
+  font-size: var(--base-font-size);
+  ;
+  color: var(--base-font-color)
+}
+
+.quests-items-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quest-prop {
+  font-size: var(--base-font-size);
+  padding: 1vh 1vw;
+  margin: 1vh 1vw;
+}
+
+.quest-prop[contenteditable=true] {
+  border: solid 1px var(--base-font-color);
+}
+
+.quest-prop[contenteditable=true].unsaved {
+  color: #C7818B;
+}
+
+.quest-prop[contenteditable=true]:focus {
+  background: #FBFBFA;
+}
+
+.quest-props {
+  margin: 3vh 4vw;
+}
+
+.prop-title {
+  font-weight: bold;
+  font-size: var(--base-font-size);
+}

@@ -88,13 +88,16 @@ form input:not([type='submit']) {
     margin-top: 30px;
 }
 
-#submit {
-    font-size: 6vw;
+.submit {
     background-color: #7a9d96;
-    color: #fff;
     border: 0px;
     padding: 2.2vh 6vw;
     cursor: pointer;
+}
+
+.submit a {
+    font-size: 6vw;
+    color: #fff;
 }
 
 .error-message {

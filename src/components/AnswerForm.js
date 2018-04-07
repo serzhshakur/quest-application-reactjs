@@ -46,7 +46,7 @@ class AnswerForm extends React.Component {
                     id='answer-input'
                     className={classToAppend}
                 />
-                <button onClick={this.props.submitAnswer} id='submit'>Проверить</button>
+                <button onClick={this.props.submitAnswer} className='submit'>Проверить</button>
             </form>
         )
     }
