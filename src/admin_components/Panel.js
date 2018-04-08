@@ -19,7 +19,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { question: {text}, answer, hint, activeTab, index, activateTab } = this.props;
+    const { title, activeTab, index, activateTab } = this.props;
     const { height } = this.state;
     const isActive = activeTab === index;
     const innerStyle = {
@@ -29,10 +29,12 @@ export default class extends React.Component {
     return (
       <div className="panel" role="tabpanel" aria-expanded={isActive}>
         <button className="panel__label" role="tab" onClick={activateTab}>
-          {text}
+          {title}
         </button>
         <div className="panel__inner" style={innerStyle}>
-          <p className="panel__content">{text}</p>
+          <div className="panel__content">
+            {this.props.children}
+          </div>
         </div>
       </div>
     );

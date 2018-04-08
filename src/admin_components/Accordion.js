@@ -1,13 +1,14 @@
 import React from "react";
 import Panel from "./Panel.js";
-import styles from '../styles/accordion.css'
+import EditableEntry from './EditableEntry.js';
+import styles from '../styles/accordion.css';
 
 export default class extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            activeTab: -1
+            activeTab: -1,
         };
 
         this.activateTab = this.activateTab.bind(this);
@@ -20,19 +21,33 @@ export default class extends React.Component {
     }
 
     render() {
-        const { questions } = this.props;
+        const { data } = this.props;
         const { activeTab } = this.state;
         return (
             <div className="accordion" role="tablist">
                 <div className='prop-title'>{this.props.title}</div>
-                {questions.map((question, index) => (
+                {data.map((entry, index) => (
                     <Panel
+                        title={entry.text}
                         key={index}
                         activeTab={activeTab}
                         index={index}
-                        {...question}
                         activateTab={this.activateTab.bind(null, index)}
-                    />
+                    >
+                        <div>
+                            {
+                                Object.entries(entry).map(([key, value], idx) => {
+                                    return <EditableEntry
+                                        key={idx}
+                                        title={key}
+                                        content={value}
+                                        propagateContent={content => this.props.propagateArrayValue(index, key, content)}
+                                        isEditMode={this.props.isEditMode}
+                                    />
+                                })
+                            }
+                        </div>
+                    </Panel>
                 ))}
             </div>
         );
