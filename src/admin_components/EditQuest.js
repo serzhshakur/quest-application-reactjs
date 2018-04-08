@@ -18,7 +18,7 @@ export default class extends PureComponent {
 
     componentDidMount() {
         fetchQuest(this.props.match.params.questId)
-            .then(questObj => this.setState({ quest: questObj }))
+            .then(questObj => this.setState({ quest: questObj, editedQuest: questObj }))
     }
 
     enableEditMode(e) {
@@ -30,9 +30,18 @@ export default class extends PureComponent {
         this.setState({ editedQuest: { ...this.state.editedQuest, [propName]: propValue } })
     }
 
+    setNewValueInArray(arrayName, index, propName, propValue) {
+        let arr = [...this.state.editedQuest[arrayName]];
+        let item = { ...arr[index] };
+        item[propName] = propValue;
+        arr[index] = item;
+        this.setNewValue(arrayName, arr);
+    }
+
     submitChanges() {
         const { questId } = this.props.match.params;
         const questDetails = this.state.editedQuest;
+        console.log(this.state.editedQuest);
         updateQuest(questId, questDetails)
             .then(() => {
                 this.setState({ editedQuest: {} });
@@ -79,12 +88,14 @@ export default class extends PureComponent {
                             propagateContent={content => this.setNewValue('finalWords', content)}
                             isEditMode={this.state.isEditMode} />
 
-                        {/* <div className='accordion-holder'>
+                        <div className='accordion-holder'>
                             <Accordion
                                 title='Questions:'
-                                questions={this.state.quest.questions ? this.state.quest.questions : []}
+                                propagateArrayValue={(index, key, value) => this.setNewValueInArray('questions', index, key, value)}
+                                isEditMode={this.state.isEditMode}
+                                data={this.state.quest.questions ? this.state.quest.questions : []}
                             />
-                        </div> */}
+                        </div>
 
                     </div>}
 
