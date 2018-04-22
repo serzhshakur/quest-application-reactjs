@@ -25,12 +25,12 @@ class Question extends React.PureComponent {
 
     render() {
         const { isModalOpen, imgSrc } = this.state;
-        const { text: question, images } = this.props.question;
+        const { text, images } = this.props;
         return (
             <div>
                 <div
                     id='question'
-                    dangerouslySetInnerHTML={{ __html: question }}
+                    dangerouslySetInnerHTML={{ __html: text }}
                 />
 
                 {images &&

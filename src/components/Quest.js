@@ -28,7 +28,8 @@ class Quest extends React.Component {
             .then(response => this.setState(
                 {
                     isEnd: response.isEnd,
-                    question: response.question,
+                    text: response.text,
+                    images: response.images,
                     wrongAnswers: response.wrongAnswers,
                     hintRetrievals: response.hintRetrievals
                 }
@@ -67,7 +68,7 @@ class Quest extends React.Component {
     render() {
         return this.state.isEnd ? (<Redirect to='/finish' />) : (
             <div id='questions-section'>
-                <Question question={this.state.question} />
+                <Question text={this.state.text} images={this.state.images} />
                 <AnswerForm
                     questionNumber={this.state.questionNumber}
                     isAnswerCorrect={this.state.isAnswerCorrect}
