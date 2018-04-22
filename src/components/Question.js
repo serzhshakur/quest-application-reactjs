@@ -28,7 +28,10 @@ class Question extends React.PureComponent {
         const { text: question, images } = this.props.question;
         return (
             <div>
-                <div id='question'>{question}</div>
+                <div
+                    id='question'
+                    dangerouslySetInnerHTML={{ __html: question }}
+                />
 
                 {images &&
                     (<div>

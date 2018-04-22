@@ -4,6 +4,7 @@
 
 .panel {
     border: solid 1px #6f968e;
+    /* background-color: hsl(70, 20%, 90%); */
     margin: 3vh 1vw;
 }
 
@@ -49,6 +50,7 @@
 }
 
 .panel[aria-expanded="true"] .panel__label {
+    /* background-color: hsl(70, 20%, 85%); */
     font-weight: bold;
 }
 
