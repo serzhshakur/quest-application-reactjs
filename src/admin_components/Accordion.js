@@ -28,7 +28,7 @@ export default class extends React.Component {
                 <div className='prop-title'>{this.props.title}</div>
                 {data.map((entry, index) => (
                     <Panel
-                        title={entry.text}
+                        title={`Item ${index + 1}`}
                         key={index}
                         activeTab={activeTab}
                         index={index}

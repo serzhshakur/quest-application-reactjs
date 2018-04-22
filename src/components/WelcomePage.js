@@ -15,14 +15,18 @@ class WelcomePage extends React.PureComponent {
     }
 
     render() {
-        return (<div id='introductory-section' className="regular-page">
-            <p>{this.state.introText}</p>
-            <div>
-                <button className="regular-button">
-                    <Link to='/quest'>Вперед</Link>
-                </button>
+        return (
+            <div
+                id='introductory-section'
+                className="regular-page"
+            >
+                <div dangerouslySetInnerHTML={{ __html: this.state.introText }} />
+                <div>
+                    <button className="regular-button">
+                        <Link to='/quest'>Вперед</Link>
+                    </button>
+                </div>
             </div>
-        </div>
         )
     }
 }

@@ -1,27 +1,10 @@
-:root {
-  --base-font-size: 5vw;
-  --base-font-color: #073c4e;
-}
-
 .admin-page {
   margin: 8vh 2vw;
   padding: 1vh 1vw;
-  font-size: var(--base-font-size);
-  color: var(--base-font-color);
-}
-
-.admin-page button {
-  font-size: inherit;
-  color: inherit;
-}
-
-.admin-page a {
-  text-decoration: none;
-  color: inherit;
 }
 
 .admin-page .admin-button {
-  background-color: #7a9d96;
+  background-color: var(--color-dark);
   border: 0px;
   margin: 4vh 1vw;
   padding: 2vh 4vw;
@@ -49,6 +32,7 @@
 .prop-content {
   padding: 2vh 4vw;
   margin: 1vh 1vw;
+  white-space: pre-wrap;
 }
 
 .prop-content[contenteditable=true] {

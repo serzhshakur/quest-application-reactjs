@@ -1,12 +1,32 @@
 @import url(https://fonts.googleapis.com/css?family=Arsenal&subset=cyrillic);
+:root {
+    --base-font-size: 5vw;
+    --base-font-color: #073c4e;
+    --color-dark: #7a9d96;
+    --color-light: #f2f3ed;
+}
+
 body {
     font-family: 'Arsenal', sans-serif;
-    color: #073c4e;
+    color: var(--base-font-color);
+    font-size: var(--base-font-size);
+    background-color: var(--color-light);
     font-weight: 300;
     text-align: center;
     margin: 0;
     padding: 0;
-    background-color: #f2f3ed;
+}
+
+a, button, input {
+    font-family: inherit;
+    text-decoration: none;
+    color: inherit;
+    font-size: inherit;
+}
+
+input:not([type='submit']) {
+    color: var(--base-font-color);
+    font-size: var(--base-font-size)
 }
 
 #sticky-title {
@@ -28,7 +48,7 @@ body {
 
 .regular-page {
     height: 77vh;
-    background-color: #7a9d96;
+    background-color: var(--color-dark);
     padding: 13vh 5vh 10vh 5vh;
     color: white;
     font-size: 6vw;
@@ -39,23 +59,18 @@ body {
 .regular-button {
     margin-top: 6vw;
     background-color: white;
-    color: #7a9d96;
+    color: var(--color-dark);
     border: none;
     font-weight: bold;
     font-size: 6vw;
     padding: 3vw 5vw;
 }
+
 .regular-button a {
-    text-decoration: none;
-    color: #7a9d96;
+    color: var(--color-dark);
 }
 
-input, button {
-    font-family: 'Arsenal', sans-serif;
-}
 /* ------------------------------------------- */
-
-
 
 #questions-section {
     overflow: auto;
@@ -76,12 +91,7 @@ form input:not([type='submit']) {
     width: 60vw;
     margin: 30px 0;
     padding: 2vw;
-    font-size: 5vw;
-    border: solid 1px #7a9d96;
-}
-
-#answer-input:active {
-    border: solid 1px #7a9d96;
+    border: solid 1px var(--color-dark);
 }
 
 .button-holder {
@@ -89,13 +99,13 @@ form input:not([type='submit']) {
 }
 
 .submit {
-    background-color: #7a9d96;
+    background-color: var(--color-dark);
     border: 0px;
     padding: 2.2vh 6vw;
     cursor: pointer;
 }
 
-.submit a {
+.submit, .submit a {
     font-size: 6vw;
     color: #fff;
 }
@@ -127,16 +137,19 @@ form input:not([type='submit']) {
     margin-top: 2vh;
 }
 
-.question-img:first-child:nth-last-child(6), .question-img:first-child:nth-last-child(6) ~ .question-img {
+.question-img:first-child:nth-last-child(6), .question-img:first-child:nth-last-child(6)~.question-img {
     width: 30%;
 }
-.question-img:first-child:nth-last-child(4), .question-img:first-child:nth-last-child(4) ~ .question-img {
+
+.question-img:first-child:nth-last-child(4), .question-img:first-child:nth-last-child(4)~.question-img {
     width: 45%;
 }
-.question-img:first-child:nth-last-child(3), .question-img:first-child:nth-last-child(3) ~ .question-img {
+
+.question-img:first-child:nth-last-child(3), .question-img:first-child:nth-last-child(3)~.question-img {
     width: 30%;
 }
-.question-img:first-child:nth-last-child(2), .question-img:first-child:nth-last-child(2) ~ .question-img {
+
+.question-img:first-child:nth-last-child(2), .question-img:first-child:nth-last-child(2)~.question-img {
     width: 45%;
 }
 
@@ -157,7 +170,7 @@ img {
     text-justify: auto;
     width: 90%;
     height: auto;
-    border: 3px solid #7a9d96;
+    border: 3px solid var(--color-dark);
 }
 
 #hint-query {
@@ -169,7 +182,7 @@ img {
     width: 25px;
     height: 25px;
     margin-right: 10px;
-    border: solid 4px #7a9d96;
+    border: solid 4px var(--color-dark);
     border-radius: 50%;
     -webkit-transform: rotate(100deg);
     -moz-transform: rotate(100deg);
@@ -181,7 +194,6 @@ img {
     animation: circle infinite .75s linear;
     border-top: 4px solid #a3d1c7;
 }
-
 
 /* Hint Loading effect */
 
@@ -198,7 +210,6 @@ img {
     }
 }
 
-
 /* Penalties section */
 
 #penalties {
@@ -214,7 +225,7 @@ img {
 }
 
 #penalties-wrong-answers-label {
-    color: #7a9d96;
+    color: var(--color-dark);
     font-size: 12vw;
     font-weight: bold;
 }
@@ -227,7 +238,6 @@ svg {
     font-size: 7vw;
     margin: 0 8px;
 }
-
 
 /* Modal image */
 
@@ -308,7 +318,6 @@ svg {
     }
 }
 
-
 /* Tooltip text */
 
 .tooltip-container {
@@ -335,7 +344,6 @@ svg {
 .tooltip-container:hover .tooltip {
     display: block;
 }
-
 
 /* Test */
 
