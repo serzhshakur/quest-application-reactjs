@@ -10,8 +10,6 @@ export default class extends React.Component {
         this.state = {
             activeTab: -1,
         };
-
-        this.activateTab = this.activateTab.bind(this);
     }
 
     activateTab(index) {
@@ -32,7 +30,7 @@ export default class extends React.Component {
                         key={index}
                         activeTab={activeTab}
                         index={index}
-                        activateTab={this.activateTab.bind(null, index)}
+                        activateTab={this.activateTab.bind(this, index)}
                     >
                         <div>
                             {
