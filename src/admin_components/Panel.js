@@ -19,7 +19,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { title, activeTab, index, activateTab } = this.props;
+    const { title, activeTab, index, activateTab, isEditMode, markItemForRemoval, isForRemoval } = this.props;
     const { height } = this.state;
     const isActive = activeTab === index;
     const innerStyle = {
@@ -27,10 +27,27 @@ export default class extends React.Component {
     };
 
     return (
-      <div className="panel" role="tabpanel" aria-expanded={isActive}>
-        <button className="panel__label" role="tab" onClick={activateTab}>
-          {title}
-        </button>
+      <div
+        className={`panel ${isForRemoval ? 'item-to-remove' : ''}`}
+        role="tabpanel"
+        aria-expanded={isActive}
+      >
+        <div className='panel-label-container'>
+          <button
+            className='panel-remove-button'
+            onClick={markItemForRemoval}
+            disabled={!isEditMode}
+          >
+            {isEditMode ? '⨯' : ''}
+          </button>
+          <button
+            className="panel__label"
+            role="tab"
+            onClick={activateTab}
+          >
+            {title}
+          </button>
+        </div>
         <div className="panel__inner" style={innerStyle}>
           <div className="panel__content">
             {this.props.children}

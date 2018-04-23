@@ -38,14 +38,19 @@ export default class extends PureComponent {
         this.setNewValue(arrayName, arr);
     }
 
+    removeValueFromArray(arrayName, index) {
+        let arr = [...this.state.editedQuest[arrayName]];
+        arr.splice(index, 1);
+        this.setNewValue(arrayName, arr);
+    }
+
     submitChanges() {
         const { questId } = this.props.match.params;
         const questDetails = this.state.editedQuest;
-        console.log(this.state.editedQuest);
+        
         updateQuest(questId, questDetails)
-            .then(() => {
-                this.setState({ editedQuest: {} });
-                this.goBack();
+            .then(result => {
+                this.setState({ quest: result, editedQuest: result })
             })
     }
 
@@ -91,7 +96,8 @@ export default class extends PureComponent {
                         <div className='accordion-holder'>
                             <Accordion
                                 title='Questions:'
-                                propagateArrayValue={(index, key, value) => this.setNewValueInArray('questions', index, key, value)}
+                                propagateValue={(index, key, value) => this.setNewValueInArray('questions', index, key, value)}
+                                removeItem={index => this.removeValueFromArray('questions', index)}
                                 isEditMode={this.state.isEditMode}
                                 data={this.state.quest.questions ? this.state.quest.questions : []}
                             />

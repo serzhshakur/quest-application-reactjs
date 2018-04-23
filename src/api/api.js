@@ -73,6 +73,6 @@ export function updateQuest(questId, questDetails) {
         body: JSON.stringify(questDetails),
         credentials: 'include'
     }
-    return fetch(`${baseUrl}/quests/${questId}`, options)
+    return fetch(`${baseUrl}/quests/${questId}`, options).then(response => response.json())
 }
 
