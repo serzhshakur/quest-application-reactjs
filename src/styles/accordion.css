@@ -4,14 +4,29 @@
 
 .panel {
     border: solid 1px #6f968e;
-    /* background-color: hsl(70, 20%, 90%); */
     margin: 3vh 1vw;
+}
+
+.panel.item-to-remove {
+    border: solid 1px #DFA5AD;
+    color: #DFA5AD;
+    margin: 3vh 1vw;
+}
+
+.panel-label-container {
+    display: flex;
+}
+
+.panel-label-container .panel-remove-button {
+    width: 10vw;
+    border: none;
+    background: none;
+    text-align: center;
 }
 
 .panel__label {
     padding: 2.5vh 12vw 2.5vh 7vw;
     position: relative;
-    display: block;
     width: 100%;
     border: none;
     background: none;
@@ -36,6 +51,10 @@
     background-color: #6f968e;
 }
 
+.item-to-remove .panel__label:after, .item-to-remove .panel__label:before {
+    background-color: #DFA5AD;
+}
+
 .panel__label:before {
     -webkit-transform: rotate(-90deg);
     transform: rotate(-90deg);
@@ -50,7 +69,6 @@
 }
 
 .panel[aria-expanded="true"] .panel__label {
-    /* background-color: hsl(70, 20%, 85%); */
     font-weight: bold;
 }
 
