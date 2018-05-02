@@ -10,7 +10,7 @@ export default class extends PureComponent {
         super(props)
         this.state = {
             quest: undefined,
-            editedQuest: {},
+            unsavedQuest: {},
             isEditMode: false,
             shouldRedirectBack: false
         }
@@ -18,7 +18,7 @@ export default class extends PureComponent {
 
     componentDidMount() {
         fetchQuest(this.props.match.params.questId)
-            .then(questObj => this.setState({ quest: questObj, editedQuest: questObj }))
+            .then(quest => this.setState({ quest, unsavedQuest: quest }))
     }
 
     enableEditMode(e) {
@@ -27,11 +27,11 @@ export default class extends PureComponent {
     }
 
     setNewValue(propName, propValue) {
-        this.setState({ editedQuest: { ...this.state.editedQuest, [propName]: propValue } })
+        this.setState({ unsavedQuest: { ...this.state.unsavedQuest, [propName]: propValue } })
     }
 
     setNewValueInArray(arrayName, index, propName, propValue) {
-        let arr = [...this.state.editedQuest[arrayName]];
+        let arr = [...this.state.unsavedQuest[arrayName]];
         let item = { ...arr[index] };
         item[propName] = propValue;
         arr[index] = item;
@@ -39,18 +39,18 @@ export default class extends PureComponent {
     }
 
     removeValueFromArray(arrayName, index) {
-        let arr = [...this.state.editedQuest[arrayName]];
+        let arr = [...this.state.unsavedQuest[arrayName]];
         arr.splice(index, 1);
         this.setNewValue(arrayName, arr);
     }
 
     submitChanges() {
         const { questId } = this.props.match.params;
-        const questDetails = this.state.editedQuest;
-        
-        updateQuest(questId, questDetails)
-            .then(result => {
-                this.setState({ quest: result, editedQuest: result })
+        const { unsavedQuest } = this.state;
+
+        updateQuest(questId, unsavedQuest)
+            .then(quest => {
+                this.setState({ quest, unsavedQuest: quest })
             })
     }
 

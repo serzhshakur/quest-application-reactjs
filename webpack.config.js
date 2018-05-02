@@ -27,6 +27,10 @@ module.exports = {
             }
         ]
     },
+    devServer: {
+        historyApiFallback: true,
+        hot: true
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/index.html',
@@ -34,9 +38,8 @@ module.exports = {
         }),
         new webpack.DefinePlugin({
             '__API_HOST': JSON.stringify(process.env.QUESTS_API_HOST)
-        })
-    ],
-    devServer: {
-        historyApiFallback: true,
-    }
+        }),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
+    ]
 };
