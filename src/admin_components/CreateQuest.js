@@ -16,8 +16,12 @@ export default class extends PureComponent {
 
     onSubmit(e) {
         e.preventDefault();
-        postQuest(this.state).then(() => this.setState({ shouldRedirect: true }))
+        postQuest({
+            id: this.state.questId,
+            name: this.state.questName
+        }).then(() => this.setState({ shouldRedirect: true }))
     }
+
 
     onDescriptionInput(e) {
         this.setState({
