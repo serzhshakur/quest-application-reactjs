@@ -18,7 +18,7 @@ export default class extends PureComponent {
         e.preventDefault();
         postQuest({
             id: this.state.questId,
-            name: this.state.questName
+            name: this.state.questName,
         }).then(() => this.setState({ shouldRedirect: true }))
     }
 

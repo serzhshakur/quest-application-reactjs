@@ -19,47 +19,44 @@ export default class extends React.Component {
         }));
     }
 
-    markItemForRemoval(index) {
-        let items = [...this.state.itemsToRemove];
-        if (!items.includes(index)) {
-            items.push(index)
-        }
-        this.props.removeItem(index);
-        this.setState({ itemsToRemove: items });
-    }
-
     render() {
-        const { data } = this.props;
+        const { isEditMode, title, unsavedContent, content: savedContent } = this.props;
         const { activeTab } = this.state;
         return (
             <div className="accordion" role="tablist">
-                <div className='prop-title'>{this.props.title}</div>
-                {data.map((entry, index) => (
-                    <Panel
-                        key={index}
-                        title={`Item ${index + 1}`}
-                        activeTab={activeTab}
-                        index={index}
-                        isEditMode={this.props.isEditMode}
-                        markItemForRemoval={this.markItemForRemoval.bind(this, index)}
-                        isForRemoval={this.state.itemsToRemove.includes(index)}
-                        activateTab={this.activateTab.bind(this, index)}
-                    >
-                        <div>
-                            {
-                                Object.entries(entry).map(([key, value], idx) => {
-                                    return <EditableEntry
-                                        key={idx}
-                                        title={key}
-                                        content={value}
-                                        propagateContent={content => this.props.propagateValue(index, key, content)}
-                                        isEditMode={this.props.isEditMode}
-                                    />
-                                })
-                            }
-                        </div>
-                    </Panel>
-                ))}
+                <div className='prop-title'>{title}</div>
+                {unsavedContent.map((entry, index) => {
+                    const { __id, ...question } = entry;
+                    const savedContentEntry = savedContent.find(e => e.__id == __id);
+                    return (
+                        <Panel
+                            key={__id}
+                            title={`Item ${index + 1}`}
+                            activeTab={activeTab}
+                            index={index}
+                            isEditMode={isEditMode}
+                            removeItem={() => this.props.removeItem(__id)}
+                            isNewItem={savedContentEntry === undefined}
+                            activateTab={this.activateTab.bind(this, index)}
+                        >
+                            <div>
+                                {
+                                    Object.entries(question).map(([key, value], idx) => {
+                                        return <EditableEntry
+                                            key={idx}
+                                            title={key}
+                                            content={savedContentEntry ? savedContentEntry[key] : {}}
+                                            unsavedContent={value}
+                                            propagateContent={content => this.props.propagateArrayValue(__id, key, content)}
+                                            isEditMode={isEditMode}
+                                        />
+                                    })
+                                }
+                            </div>
+                        </Panel>
+                    )
+                })}
+                {isEditMode && <button id='add-new-item' onClick={this.props.addItem}>+ Add</button>}
             </div>
         );
     }

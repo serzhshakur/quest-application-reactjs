@@ -4,9 +4,6 @@ import { PureComponent } from 'react'
 export default class extends PureComponent {
     constructor(props) {
         super(props)
-        this.state = {
-            content: this.props.content
-        }
     }
 
     onBlur(e) {
@@ -22,7 +19,6 @@ export default class extends PureComponent {
         }
         const text = targetElement.innerHTML;
         this.props.propagateContent(text);
-        this.setState({ content: text });
     }
 
     render() {
@@ -32,8 +28,8 @@ export default class extends PureComponent {
                 <div
                     contentEditable={this.props.isEditMode} suppressContentEditableWarning='disabled'
                     onBlur={this.onBlur.bind(this)}
-                    className={`prop-content${this.state.content == this.props.content ? '' : ' unsaved'}`}
-                    dangerouslySetInnerHTML={{ __html: this.state.content }}
+                    className={`prop-content${this.props.content == this.props.unsavedContent ? '' : ' unsaved'}`}
+                    dangerouslySetInnerHTML={{ __html: this.props.unsavedContent }}
                 >
                 </div>
             </div>
