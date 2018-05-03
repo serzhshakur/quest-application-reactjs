@@ -7,7 +7,7 @@
     margin: 3vh 1vw;
 }
 
-.panel.item-to-remove {
+.panel.new-array-item {
     border: solid 1px #DFA5AD;
     color: #DFA5AD;
     margin: 3vh 1vw;
@@ -51,7 +51,7 @@
     background-color: #6f968e;
 }
 
-.item-to-remove .panel__label:after, .item-to-remove .panel__label:before {
+.new-array-item .panel__label:after, .new-array-item .panel__label:before {
     background-color: #DFA5AD;
 }
 
@@ -97,4 +97,13 @@
 
 .accordion .panel {
     font-size: 4.5vw;
+}
+
+button#add-new-item {
+    background-color: var(--color-dark);
+    border: none;
+    color: white;
+    margin: 2vh 1vw;
+    padding: 1.5vh 3vw;
+    font-size: 2.5vh;
 }
