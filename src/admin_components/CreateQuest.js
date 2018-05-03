@@ -19,6 +19,7 @@ export default class extends PureComponent {
         postQuest({
             id: this.state.questId,
             name: this.state.questName,
+            questions: []
         }).then(() => this.setState({ shouldRedirect: true }))
     }
 

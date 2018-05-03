@@ -35,14 +35,15 @@ export default class extends PureComponent {
     }
 
     addItemToQuestionsArray() {
-        let arr = [...this.state.unsavedQuest[this.QUESTIONS_ARRAY_NAME]];
-        const question = {
+        const questions = this.state.unsavedQuest[this.QUESTIONS_ARRAY_NAME];
+        let arr = questions ? [...questions] : []
+        const defaultQuestion = {
             text: "",
             answer: "",
             hint: "",
             __id: this.generateRandomAlphanumeric()
         };
-        arr.push(question);
+        arr.push(defaultQuestion);
         this.setNewValue(this.QUESTIONS_ARRAY_NAME, arr);
     }
 
