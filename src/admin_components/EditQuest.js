@@ -23,6 +23,7 @@ export default class extends PureComponent {
     componentDidMount() {
         fetchQuest(this.props.match.params.questId)
             .then(quest => this.setState({ quest, unsavedQuest: quest }))
+            .catch(() => this.setState({ shouldRedirectBack: true }))
     }
 
     enableEditMode(e) {
@@ -68,9 +69,7 @@ export default class extends PureComponent {
         const { unsavedQuest } = this.state;
 
         updateQuest(questId, unsavedQuest)
-            .then(quest => {
-                this.setState({ quest, unsavedQuest: quest })
-            })
+            .then(quest => this.setState({ quest, unsavedQuest: quest }))
     }
 
     goBack() {
@@ -122,16 +121,15 @@ export default class extends PureComponent {
                                 isEditMode={this.state.isEditMode}
                                 content={this.state.quest.questions ? this.state.quest.questions : []}
                                 unsavedContent={this.state.unsavedQuest.questions ? this.state.unsavedQuest.questions : []}
-                                propagateArrayValue={(__id, key, value) => this.setNewValueForQuestionsItem(__id, key, value)}
-                                removeItem={__id => this.removeItemFromQuestionsArray(__id)}
-                                addItem={() => this.addItemToQuestionsArray()}
+                                propagateArrayValue={this.setNewValueForQuestionsItem.bind(this)}
+                                removeItem={this.removeItemFromQuestionsArray.bind(this)}
+                                addItem={this.addItemToQuestionsArray.bind(this)}
                             />
                         </div>
 
                     </div>}
 
                 <button className="admin-button" onClick={this.submitChanges.bind(this)}>Save</button>
-
                 <button className="admin-button" onClick={this.goBack.bind(this)}>Go Back</button>
 
             </div>
