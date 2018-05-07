@@ -14,15 +14,18 @@ export default class extends PureComponent {
         }
     }
 
+    goBack() {
+        this.setState({ shouldRedirect: true })
+    }
+
     onSubmit(e) {
         e.preventDefault();
         postQuest({
             id: this.state.questId,
             name: this.state.questName,
             questions: []
-        }).then(() => this.setState({ shouldRedirect: true }))
+        }).then(() => this.goBack())
     }
-
 
     onDescriptionInput(e) {
         this.setState({
@@ -39,6 +42,7 @@ export default class extends PureComponent {
     render() {
         return (
             <div className="regular-page">
+                {this.state.shouldRedirect && (<Redirect to='/admin' />)}
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <div>
                         <label htmlFor='questId'>Quest identificator</label>
@@ -50,7 +54,7 @@ export default class extends PureComponent {
                     </div>
                     <div><input type='submit' className="regular-button" value='Submit' /></div>
                 </form>
-                {this.state.shouldRedirect && (<Redirect to='/admin' />)}
+                <button className="regular-button" onClick={this.goBack.bind(this)}>{'<'}</button>
             </div>
         )
     }

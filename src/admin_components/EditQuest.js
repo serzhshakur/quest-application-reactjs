@@ -129,8 +129,8 @@ export default class extends PureComponent {
 
                     </div>}
 
+                <button className="admin-button" onClick={this.goBack.bind(this)}>{'<'}</button>
                 <button className="admin-button" onClick={this.submitChanges.bind(this)}>Save</button>
-                <button className="admin-button" onClick={this.goBack.bind(this)}>Go Back</button>
 
             </div>
         )
