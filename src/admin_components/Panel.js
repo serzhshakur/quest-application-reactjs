@@ -23,7 +23,8 @@ export default class extends React.Component {
     const { height } = this.state;
     const isActive = activeTab === index;
     const innerStyle = {
-      height: isActive ? `${height}px` : "0px"
+      'min-height': isActive ? `${height}px` : "0px",
+      height: isActive ? 'auto' : '0px'
     };
 
     return (
