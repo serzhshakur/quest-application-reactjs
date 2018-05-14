@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react";
+import AnimateHeight from 'react-animate-height';
 
 export default class extends React.Component {
   constructor(props) {
@@ -10,22 +11,10 @@ export default class extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const el = ReactDOM.findDOMNode(this);
-    const height = el.querySelector(".panel__inner").scrollHeight;
-    this.setState({
-      height
-    });
-  }
-
   render() {
     const { title, activeTab, index, activateTab, isEditMode, removeItem, isNewItem } = this.props;
-    const { height } = this.state;
     const isActive = activeTab === index;
-    const innerStyle = {
-      'min-height': isActive ? `${height}px` : "0px",
-      height: isActive ? 'auto' : '0px'
-    };
+    const height = isActive ? 'auto' : 0;
 
     return (
       <div
@@ -49,11 +38,13 @@ export default class extends React.Component {
             {title}
           </button>
         </div>
-        <div className="panel__inner" style={innerStyle}>
-          <div className="panel__content">
-            {this.props.children}
+        <AnimateHeight duration={500} height={height} >
+          <div className="panel__inner" >
+            <div className="panel__content">
+              {this.props.children}
+            </div>
           </div>
-        </div>
+        </AnimateHeight>
       </div>
     );
   }
