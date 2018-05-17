@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import { fetchQuests } from '../api/api.js'
+import { fetchQuests } from '../api/apiAdmin'
 import styles from '../styles/admin.css'
 
 class Main extends React.PureComponent {

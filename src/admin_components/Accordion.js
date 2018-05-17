@@ -28,6 +28,7 @@ export default class extends React.Component {
                 {unsavedContent.map((entry, index) => {
                     const { __id, ...question } = entry;
                     const savedContentEntry = savedContent.find(e => e.__id == __id);
+                    const isNewItem = savedContentEntry === undefined;
                     return (
                         <Panel
                             key={__id}
@@ -36,7 +37,7 @@ export default class extends React.Component {
                             index={index}
                             isEditMode={isEditMode}
                             removeItem={() => this.props.removeItem(__id)}
-                            isNewItem={savedContentEntry === undefined}
+                            isNewItem={isNewItem}
                             activateTab={this.activateTab.bind(this, index)}
                         >
                             <div>
