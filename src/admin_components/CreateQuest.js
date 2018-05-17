@@ -1,7 +1,7 @@
 import React from 'react'
 import { PureComponent } from 'react'
 import { Redirect } from 'react-router-dom'
-import { postQuest } from '../api/api.js'
+import { postQuest } from '../api/apiAdmin'
 import styles from '../styles/input.css'
 
 export default class extends PureComponent {

@@ -6,17 +6,21 @@ export default class extends PureComponent {
         super(props)
     }
 
-    onBlur(e) {
-        let targetElement = e.target;
-        // workaround for for bug when Chrome adds extra 'style' attributes to some elements
-        while(targetElement.querySelectorAll('[style*="color"]').length > 0) {
+    replaceUnnecessaryAttributes(targetElement) {
+        // workaround for bug when Chrome adds extra 'style' attributes to some elements
+        while (targetElement.querySelectorAll('[style*="color"]').length > 0) {
             targetElement.querySelector('[style*="color"]').removeAttribute('style');
         }
         // replacing 'script' tags if there're any
-        while(targetElement.getElementsByTagName('script').length > 0) {
+        while (targetElement.getElementsByTagName('script').length > 0) {
             let el = targetElement.querySelector('script');
             el.parentNode.removeChild(el);
         }
+    }
+
+    onBlur(e) {
+        let targetElement = e.target;
+        this.replaceUnnecessaryAttributes(targetElement);
         const text = targetElement.innerHTML;
         this.props.propagateContent(text);
     }

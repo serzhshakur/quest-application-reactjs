@@ -8,7 +8,7 @@ export default class extends React.Component {
 
     this.state = {
       height: 0
-    };
+    }
   }
 
   render() {

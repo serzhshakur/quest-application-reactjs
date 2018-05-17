@@ -5,7 +5,7 @@ import Main from './Main.js'
 import CreateQuest from './CreateQuest.js'
 import EditQuest from './EditQuest.js';
 import AdminLogin from './AdminLogin.js';
-import { fetchQuests } from '../api/api';
+import { fetchQuests } from '../api/apiAdmin';
 
 class AdminApp extends React.PureComponent {
     render() {

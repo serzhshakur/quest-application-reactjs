@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { PureComponent } from 'react'
-import { fetchQuest, updateQuest } from '../api/api.js'
+import { fetchQuest, updateQuest } from '../api/apiAdmin'
 import EditableEntry from './EditableEntry.js'
 import Accordion from './Accordion.js'
 
@@ -26,7 +26,7 @@ export default class extends PureComponent {
             .catch(() => this.setState({ shouldRedirectBack: true }))
     }
 
-    enableEditMode(e) {
+    toggleEditMode(e) {
         e.preventDefault();
         this.setState({ isEditMode: !this.state.isEditMode });
     }
@@ -77,50 +77,51 @@ export default class extends PureComponent {
     }
 
     render() {
+        const { shouldRedirectBack, quest, unsavedQuest, isEditMode } = this.state;
         return (
             <div className='admin-page'>
 
-                {this.state.shouldRedirectBack && <Redirect to='/admin' />}
+                {shouldRedirectBack && <Redirect to='/admin' />}
 
-                <button onClick={this.enableEditMode.bind(this)} className="admin-button">Edit</button>
+                <button onClick={this.toggleEditMode.bind(this)} className="admin-button">Edit</button>
 
-                {this.state.quest &&
+                {quest &&
                     <div className='quest-props'>
 
                         <EditableEntry
                             title='Quest name:'
-                            content={this.state.quest.name}
-                            unsavedContent={this.state.unsavedQuest.name}
+                            content={quest.name}
+                            unsavedContent={unsavedQuest.name}
                             propagateContent={content => this.setNewValue('name', content)}
-                            isEditMode={this.state.isEditMode} />
+                            isEditMode={isEditMode} />
 
                         <EditableEntry
                             title='Quest id:'
-                            content={this.state.quest.id}
-                            unsavedContent={this.state.unsavedQuest.id}
+                            content={quest.id}
+                            unsavedContent={unsavedQuest.id}
                             propagateContent={content => this.setNewValue('id', content)}
-                            isEditMode={this.state.isEditMode} />
+                            isEditMode={isEditMode} />
 
                         <EditableEntry
                             title='Quest intro:'
-                            content={this.state.quest.intro}
-                            unsavedContent={this.state.unsavedQuest.intro}
+                            content={quest.intro}
+                            unsavedContent={unsavedQuest.intro}
                             propagateContent={content => this.setNewValue('intro', content)}
-                            isEditMode={this.state.isEditMode} />
+                            isEditMode={isEditMode} />
 
                         <EditableEntry
                             title='Final words:'
-                            content={this.state.quest.finalWords}
-                            unsavedContent={this.state.unsavedQuest.finalWords}
+                            content={quest.finalWords}
+                            unsavedContent={unsavedQuest.finalWords}
                             propagateContent={content => this.setNewValue('finalWords', content)}
-                            isEditMode={this.state.isEditMode} />
+                            isEditMode={isEditMode} />
 
                         <div className='accordion-holder'>
                             <Accordion
                                 title='Questions:'
-                                isEditMode={this.state.isEditMode}
-                                content={this.state.quest.questions ? this.state.quest.questions : []}
-                                unsavedContent={this.state.unsavedQuest.questions ? this.state.unsavedQuest.questions : []}
+                                isEditMode={isEditMode}
+                                content={quest.questions ? quest.questions : []}
+                                unsavedContent={unsavedQuest.questions ? unsavedQuest.questions : []}
                                 propagateArrayValue={this.setNewValueForQuestionsItem.bind(this)}
                                 removeItem={this.removeItemFromQuestionsArray.bind(this)}
                                 addItem={this.addItemToQuestionsArray.bind(this)}

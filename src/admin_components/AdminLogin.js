@@ -1,7 +1,7 @@
 import React from 'react'
 import { PureComponent } from 'react'
 import { Redirect } from 'react-router-dom'
-import { loginToAdmin } from '../api/api.js'
+import { loginToAdmin } from '../api/apiAdmin'
 import styles from '../styles/input.css'
 
 export default class extends PureComponent {
