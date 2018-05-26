@@ -33,9 +33,12 @@ class Main extends React.PureComponent {
                                 ))
                                 }
                             </div>
-                            <button id='submit-new-quest' className="admin-button">
-                                <Link to='/admin/create-quest'>Create new quest</Link>
+
+                            <Link to='/admin/create-quest'>
+                                <button id='submit-new-quest' className="admin-button">
+                                    Create new quest
                             </button>
+                            </Link>
                         </div>
                     }
                 </div>
