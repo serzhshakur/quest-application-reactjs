@@ -27,7 +27,7 @@ export function fetchIntro() {
 
 export function fetchFinalWords() {
     return fetch(`${baseUrl}/questions/final`, { credentials: 'include' })
-        .then(response => response.text())
+        .then(response => response.json())
 }
 
 export function postAnswer(answer) {

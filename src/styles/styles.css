@@ -30,7 +30,7 @@ input:not([type='submit']) {
 }
 
 #sticky-title {
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-weight: 300;
     margin: 0px;
     padding: 10px 0px;
@@ -68,6 +68,15 @@ input:not([type='submit']) {
 
 .regular-button a {
     color: var(--color-dark);
+}
+
+#introductory-paragraph {
+    margin: 3vh 0;
+    line-height: 1.4
+}
+
+#introductory-paragraph div {
+    margin: 3vh 0;
 }
 
 /* ------------------------------------------- */
@@ -350,4 +359,8 @@ svg {
 div.highlight {
     border-color: #ff8e61;
     box-shadow: inset 1px 1px 6px #df744a;
+}
+
+.bold-text{
+    font-weight: bold
 }
