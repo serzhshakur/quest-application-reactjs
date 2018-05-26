@@ -35,6 +35,5 @@ QUESTS_API_HOST_PROD="http://my-quest.herokuapp.com/" npm run build
 where `QUESTS_API_HOST_PROD` is a hostname of [Nodejs Express server](https://github.com/serzhshakur/quest-application-node)
 
 ## Screenshots
-
-<img src="readme_images/intro.png" width="300"><img src="readme_images/welcome.png" width="300"><img src="readme_images/question_1.png" width="300"><img src="readme_images/question_1_penalties.png" width="300">
-<img src="readme_images/question_2.png" width="244"><img src="readme_images/final.png" width="300">
+<img src="readme_images/intro.png" width="300"> <img src="readme_images/welcome.png" width="300"> <img src="readme_images/question_1.png" width="300"> <img src="readme_images/question_1_penalties.png" width="300">
+<img src="readme_images/question_2.png" width="244"> <img src="readme_images/final.png" width="300">
