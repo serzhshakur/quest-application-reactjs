@@ -8,9 +8,12 @@ export default class extends PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            questName: '',
-            questId: '',
-            shouldRedirect: false
+            values: {
+                name: '',
+                id: ''
+            },
+            shouldRedirect: false,
+            errorMessage: undefined
         }
     }
 
@@ -20,22 +23,29 @@ export default class extends PureComponent {
 
     onSubmit(e) {
         e.preventDefault();
-        postQuest({
-            id: this.state.questId,
-            name: this.state.questName,
-            questions: []
-        }).then(() => this.goBack())
+
+        if (Object.values(this.state.values).some(v => !v)) {
+            this.setState({ errorMessage: 'Values must not be empty' });
+        } else {
+            postQuest({
+                ...this.state.values,
+                questions: []
+            }).then(response => {
+                if (response.error) {
+                    this.setState({ errorMessage: response.error });
+                } else {
+                    this.goBack()
+                }
+            })
+        }
     }
 
-    onDescriptionInput(e) {
+    onInput(e) {
         this.setState({
-            questName: e.target.value,
-        })
-    }
-
-    onQuestIdInput(e) {
-        this.setState({
-            questId: e.target.value,
+            values: {
+                ...this.state.values,
+                [e.target.name]: e.target.value
+            }
         })
     }
 
@@ -45,16 +55,28 @@ export default class extends PureComponent {
                 {this.state.shouldRedirect && (<Redirect to='/admin' />)}
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <div>
-                        <label htmlFor='questId'>Quest identificator</label>
-                        <input id='questId' name='questId' type='text' onInput={this.onQuestIdInput.bind(this)} />
+                        <label htmlFor='id'>Quest id</label>
+                        <input
+                            id='id'
+                            name='id'
+                            type='text'
+                            onInput={this.onInput.bind(this)}
+                            className={this.state.errorMessage ? 'incorrect' : ''}
+                        />
                     </div>
                     <div>
-                        <label htmlFor='questName'>Quest name</label>
-                        <input id='questName' name='questName' type='text' onInput={this.onDescriptionInput.bind(this)} />
+                        <label htmlFor='name'>Quest name</label>
+                        <input
+                            id='name'
+                            name='name'
+                            type='text'
+                            onInput={this.onInput.bind(this)}
+                        />
                     </div>
                     <div><input type='submit' className="regular-button" value='Submit' /></div>
                 </form>
                 <button className="regular-button" onClick={this.goBack.bind(this)}>{'<'}</button>
+                {this.state.errorMessage && <div className='error-message'>{this.state.errorMessage}</div>}
             </div>
         )
     }
