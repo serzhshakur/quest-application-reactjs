@@ -1,4 +1,3 @@
-.incorrect {
-    border-color: #ff8e61;
-    box-shadow: inset 1px 1px 6px #df744a;
-  }
+input.incorrect {
+  border: solid 1px #ff8e61 !important;
+}

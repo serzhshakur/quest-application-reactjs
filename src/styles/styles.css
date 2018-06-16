@@ -81,7 +81,7 @@ input:not([type='submit']) {
 
 /* ------------------------------------------- */
 
-#questions-section {
+.light-page {
     overflow: auto;
     padding: 15vh 5vw 3vh 5vw;
 }
@@ -89,11 +89,6 @@ input:not([type='submit']) {
 #question {
     margin: 30px 0px;
     font-size: 7.5vw;
-}
-
-form input.incorrect {
-    border-color: #ff8e61;
-    box-shadow: inset 1px 1px 6px #df744a;
 }
 
 form input:not([type='submit']) {

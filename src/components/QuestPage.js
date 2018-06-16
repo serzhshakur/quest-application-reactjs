@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import Question from './Question.js'
 import AnswerForm from './AnswerForm.js'
 import HintContainer from './HintContainer.js'
@@ -7,9 +6,9 @@ import PenaltiesContainer from './PenaltiesContainer.js'
 import { postAnswer, fetchQuestion } from '../api/api.js'
 import { Redirect } from 'react-router-dom'
 import styles from '../styles/styles.css'
+import inputStyles from '../styles/input.css'
 
-
-class Quest extends React.Component {
+export default class extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -67,7 +66,7 @@ class Quest extends React.Component {
 
     render() {
         return this.state.isEnd ? (<Redirect to='/finish' />) : (
-            <div id='questions-section'>
+            <div className='light-page'>
                 <Question text={this.state.text} images={this.state.images} />
                 <AnswerForm
                     questionNumber={this.state.questionNumber}
@@ -81,5 +80,3 @@ class Quest extends React.Component {
         )
     }
 }
-
-export default Quest;

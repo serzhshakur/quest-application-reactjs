@@ -13,7 +13,8 @@ export default class extends PureComponent {
                 id: ''
             },
             shouldRedirect: false,
-            errorMessage: undefined
+            error:
+                { message: undefined, targets: [] }
         }
     }
 
@@ -23,16 +24,16 @@ export default class extends PureComponent {
 
     onSubmit(e) {
         e.preventDefault();
-
-        if (Object.values(this.state.values).some(v => !v)) {
-            this.setState({ errorMessage: 'Values must not be empty' });
+        const emptyKeys = Object.entries(this.state.values).filter(([k, v]) => !v).map(([k, v]) => k);
+        if (emptyKeys.length > 0) {
+            this.setState({ error: { message: 'Values must not be empty', targets: emptyKeys } });
         } else {
             postQuest({
                 ...this.state.values,
                 questions: []
             }).then(response => {
                 if (response.error) {
-                    this.setState({ errorMessage: response.error });
+                    this.setState({ error: { message: response.error, targets: [] } });
                 } else {
                     this.goBack()
                 }
@@ -47,6 +48,17 @@ export default class extends PureComponent {
                 [e.target.name]: e.target.value
             }
         })
+
+        const targets = Array.from(this.state.error.targets);
+        if (targets.includes(e.target.name)) {
+            targets.splice(targets.indexOf(e.target.name), 1);
+            this.setState({
+                error: {
+                    ...this.state.error,
+                    targets
+                }
+            });
+        }
     }
 
     render() {
@@ -55,28 +67,33 @@ export default class extends PureComponent {
                 {this.state.shouldRedirect && (<Redirect to='/admin' />)}
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <div>
-                        <label htmlFor='id'>Quest id</label>
+                        <div>
+                            <label htmlFor='id'>Quest id</label>
+                        </div>
                         <input
                             id='id'
                             name='id'
                             type='text'
                             onInput={this.onInput.bind(this)}
-                            className={this.state.errorMessage ? 'incorrect' : ''}
+                            className={this.state.error.targets.includes('id') ? 'incorrect' : ''}
                         />
                     </div>
                     <div>
-                        <label htmlFor='name'>Quest name</label>
+                        <div>
+                            <label htmlFor='name'>Quest name</label>
+                        </div>
                         <input
                             id='name'
                             name='name'
                             type='text'
                             onInput={this.onInput.bind(this)}
+                            className={this.state.error.targets.includes('name') ? 'incorrect' : ''}
                         />
                     </div>
                     <div><input type='submit' className="regular-button" value='Submit' /></div>
                 </form>
                 <button className="regular-button" onClick={this.goBack.bind(this)}>{'<'}</button>
-                {this.state.errorMessage && <div className='error-message'>{this.state.errorMessage}</div>}
+                {this.state.error.message && <div className='error-message'>{this.state.error.message}</div>}
             </div>
         )
     }
