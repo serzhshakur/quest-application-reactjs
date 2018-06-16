@@ -57,3 +57,12 @@ export function updateQuest(questId, questDetails) {
     return fetch(`${baseUrl}/my-admin/quests/${questId}`, options)
         .then(response => handleResponse(response).json())
 }
+
+export function deleteQuest(questId) {
+    const options = {
+        method: "DELETE",
+        headers: { 'x-access-token': sessionStorage.token }
+    }
+    return fetch(`${baseUrl}/my-admin/quests/${questId}`, options)
+        .then(response => handleResponse(response).json())
+}
