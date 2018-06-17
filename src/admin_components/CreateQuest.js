@@ -8,9 +8,13 @@ export default class extends PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            questName: '',
-            questId: '',
-            shouldRedirect: false
+            values: {
+                name: '',
+                id: ''
+            },
+            shouldRedirect: false,
+            error:
+                { message: undefined, targets: [] }
         }
     }
 
@@ -20,23 +24,41 @@ export default class extends PureComponent {
 
     onSubmit(e) {
         e.preventDefault();
-        postQuest({
-            id: this.state.questId,
-            name: this.state.questName,
-            questions: []
-        }).then(() => this.goBack())
+        const emptyKeys = Object.entries(this.state.values).filter(([k, v]) => !v).map(([k, v]) => k);
+        if (emptyKeys.length > 0) {
+            this.setState({ error: { message: 'Values must not be empty', targets: emptyKeys } });
+        } else {
+            postQuest({
+                ...this.state.values,
+                questions: []
+            }).then(response => {
+                if (response.error) {
+                    this.setState({ error: { message: response.error, targets: [] } });
+                } else {
+                    this.goBack()
+                }
+            })
+        }
     }
 
-    onDescriptionInput(e) {
+    onInput(e) {
         this.setState({
-            questName: e.target.value,
+            values: {
+                ...this.state.values,
+                [e.target.name]: e.target.value
+            }
         })
-    }
 
-    onQuestIdInput(e) {
-        this.setState({
-            questId: e.target.value,
-        })
+        const targets = Array.from(this.state.error.targets);
+        if (targets.includes(e.target.name)) {
+            targets.splice(targets.indexOf(e.target.name), 1);
+            this.setState({
+                error: {
+                    ...this.state.error,
+                    targets
+                }
+            });
+        }
     }
 
     render() {
@@ -45,16 +67,33 @@ export default class extends PureComponent {
                 {this.state.shouldRedirect && (<Redirect to='/admin' />)}
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <div>
-                        <label htmlFor='questId'>Quest identificator</label>
-                        <input id='questId' name='questId' type='text' onInput={this.onQuestIdInput.bind(this)} />
+                        <div>
+                            <label htmlFor='id'>Quest id</label>
+                        </div>
+                        <input
+                            id='id'
+                            name='id'
+                            type='text'
+                            onInput={this.onInput.bind(this)}
+                            className={this.state.error.targets.includes('id') ? 'incorrect' : ''}
+                        />
                     </div>
                     <div>
-                        <label htmlFor='questName'>Quest name</label>
-                        <input id='questName' name='questName' type='text' onInput={this.onDescriptionInput.bind(this)} />
+                        <div>
+                            <label htmlFor='name'>Quest name</label>
+                        </div>
+                        <input
+                            id='name'
+                            name='name'
+                            type='text'
+                            onInput={this.onInput.bind(this)}
+                            className={this.state.error.targets.includes('name') ? 'incorrect' : ''}
+                        />
                     </div>
                     <div><input type='submit' className="regular-button" value='Submit' /></div>
                 </form>
                 <button className="regular-button" onClick={this.goBack.bind(this)}>{'<'}</button>
+                {this.state.error.message && <div className='error-message'>{this.state.error.message}</div>}
             </div>
         )
     }

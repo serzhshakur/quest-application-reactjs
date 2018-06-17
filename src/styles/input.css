@@ -1,4 +1,17 @@
-.incorrect {
-    border-color: #ff8e61;
-    box-shadow: inset 1px 1px 6px #df744a;
-  }
+:root {
+  --input-incorrect-color: #ff8e61;
+}
+
+.input-error-message, input.incorrect {
+  color: var(--input-incorrect-color) !important;
+}
+
+input.incorrect {
+  border: solid 1px var(--input-incorrect-color) !important;
+}
+
+.input-error-message {
+  height: 2.5vh;
+  margin: 1vh 0 3vh;
+  font-size: 2.4vh;
+}
