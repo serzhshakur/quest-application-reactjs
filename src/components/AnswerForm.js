@@ -23,8 +23,8 @@ class AnswerForm extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.props.submitAnswer();
-        this.setState({ shouldUpdateIncorrectState: true });
+        this.props.submitAnswer()
+            .then(() => this.setState({ shouldUpdateIncorrectState: true }));
     }
 
     render() {
