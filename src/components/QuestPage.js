@@ -22,6 +22,12 @@ export default class extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.questionNumber < this.state.questionNumber) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     updateQuestion() {
         fetchQuestion()
             .then(response => this.setState(

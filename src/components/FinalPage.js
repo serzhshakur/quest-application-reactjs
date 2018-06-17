@@ -30,10 +30,10 @@ class FinalPage extends React.PureComponent {
         return (
             <div className="regular-page">
                 <p>{this.state.content.finalWords}</p>
-                <p class="bold-text">Твои результаты:</p>
-                <p>Неверных ответов <span class="bold-text">{wrongAnswers}</span></p>
-                <p>Количество подсказок <span class="bold-text">{hintRetrievals}</span></p>
-                <p>Время выполнения <span class="bold-text">{`${hours}:${minutes}:${seconds}`}</span></p>
+                <p className="bold-text">Твои результаты:</p>
+                <p>Неверных ответов <span className="bold-text">{wrongAnswers}</span></p>
+                <p>Количество подсказок <span className="bold-text">{hintRetrievals}</span></p>
+                <p>Время выполнения <span className="bold-text">{`${hours}:${minutes}:${seconds}`}</span></p>
             </div>
         )
     }
