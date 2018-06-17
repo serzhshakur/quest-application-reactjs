@@ -35,13 +35,12 @@ export default class extends React.Component {
             ))
     }
 
-    onInput(e) {
-        this.setState({ answer: e.target.value })
+    onInput(answer) {
+        this.setState({ answer })
     }
 
     submitAnswer(e) {
-        e.preventDefault();
-        postAnswer(this.state.answer).then(response => {
+        return postAnswer(this.state.answer).then(response => {
             const isAnswerCorrect = response.questionNumber > this.state.questionNumber;
             this.setState(
                 {

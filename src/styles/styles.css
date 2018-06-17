@@ -93,9 +93,16 @@ input:not([type='submit']) {
 
 form input:not([type='submit']) {
     width: 60vw;
-    margin: 30px 0;
     padding: 2vw;
     border: solid 1px var(--color-dark);
+}
+
+.regular-page form input:not([type='submit']) {
+    margin: 30px 0;
+}
+
+.light-page form input:not([type='submit']) {
+    margin-top: 30px;
 }
 
 .button-holder {
@@ -121,8 +128,8 @@ form input:not([type='submit']) {
 
 #hint-container {
     font-size: 5.5vw;
-    margin: 10px 0 30px;
-    height: 50px;
+    margin: 3vh 0 5vh;
+    height: 5vh;
     display: flex;
     align-items: center;
     justify-content: center;

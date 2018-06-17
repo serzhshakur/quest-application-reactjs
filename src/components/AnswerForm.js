@@ -6,17 +6,8 @@ class AnswerForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            isInputActive: false
+            shouldUpdateIncorrectState: true
         }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (
-            nextProps.questionNumber > this.props.questionNumber
-            || nextProps.isAnswerCorrect !== this.props.isAnswerCorrect
-            || nextState.isInputActive !== this.state.isInputActive
-        ) { return true }
-        return false
     }
 
     componentWillReceiveProps(nextProps) {
@@ -25,28 +16,32 @@ class AnswerForm extends React.Component {
         }
     }
 
-    onFocus() {
-        this.setState({ isInputActive: true })
+    onInput(e) {
+        this.setState({ shouldUpdateIncorrectState: false });
+        this.props.onInput(e.target.value);
     }
-    
-    onBlur() {
-        this.setState({ isInputActive: false })
+
+    onSubmit(e) {
+        e.preventDefault();
+        this.props.submitAnswer();
+        this.setState({ shouldUpdateIncorrectState: true });
     }
 
     render() {
-        const classToAppend = !this.props.isAnswerCorrect && !this.state.isInputActive ? 'incorrect' : '';
+        const isIncorrect = !this.props.isAnswerCorrect && this.state.shouldUpdateIncorrectState;
+        const classToAppend = isIncorrect ? 'incorrect' : '';
+        const errorMessage = isIncorrect ? 'Ответ невереный' : ''
         return (
             <form>
                 <input
                     ref='answerInput'
                     type='text'
-                    onInput={this.props.onInput}
-                    onFocus={this.onFocus.bind(this)}
-                    onBlur={this.onBlur.bind(this)}
+                    onInput={this.onInput.bind(this)}
                     id='answer-input'
                     className={classToAppend}
                 />
-                <button onClick={this.props.submitAnswer} className='submit'>Проверить</button>
+                <p className='input-error-message'>{errorMessage}</p>
+                <button onClick={this.onSubmit.bind(this)} className='submit'>Проверить</button>
             </form>
         )
     }
