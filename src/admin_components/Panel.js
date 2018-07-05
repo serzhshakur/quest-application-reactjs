@@ -31,7 +31,7 @@ export default class extends React.Component {
             {isEditMode ? '⨯' : ''}
           </button>
           <button
-            className="panel__label"
+            className="panel__label accordion-item-label"
             role="tab"
             onClick={activateTab}
           >

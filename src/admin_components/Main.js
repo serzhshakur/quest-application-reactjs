@@ -2,6 +2,10 @@ import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { fetchQuests } from '../api/apiAdmin'
 import styles from '../styles/admin.css'
+import Section from "./Section.js";
+import QuestsListAccordion from './QuestsListAccordion';
+import ActionButton from './ActionButton';
+import { deleteQuest } from "../api/apiAdmin";
 
 class Main extends React.PureComponent {
     constructor(props) {
@@ -12,10 +16,18 @@ class Main extends React.PureComponent {
         }
     }
 
-    componentDidMount() {
+    updateQuests() {
         fetchQuests()
             .then(quests => this.setState({ quests }))
             .catch(() => this.setState({ shouldRedirectToLoginScreen: true }))
+    }
+
+    doQuestDeletion(id) {
+        deleteQuest(id).then(() => this.updateQuests())
+    }
+
+    componentDidMount() {
+        this.updateQuests()
     }
 
     render() {
@@ -25,14 +37,27 @@ class Main extends React.PureComponent {
                 <div className="admin-page">
                     {this.state.quests &&
                         <div>
-                            <div className='quests-items-container'>
+                            <QuestsListAccordion>
                                 {this.state.quests.map(({ name, id }) => (
-                                    <div className='quests-item' key={id}>
-                                        <Link to={`/admin/edit-quest/${id}`}>{name}</Link>
-                                    </div>
+                                    <Section
+                                        className='quests-item'
+                                        key={id}
+                                        title={name}
+                                    >
+                                        <div className="quests-item-buttons">
+                                            <button className='action-button'>
+                                                <Link to={`/admin/edit-quest/${id}`}>Open</Link>
+                                            </button>
+                                            <ActionButton
+                                                className='action-button'
+                                                title="Delete"
+                                                action={() => this.doQuestDeletion(id)}
+                                            />
+                                        </div>
+                                    </Section>
                                 ))
                                 }
-                            </div>
+                            </QuestsListAccordion>
 
                             <Link to='/admin/create-quest'>
                                 <button id='submit-new-quest' className="admin-button">

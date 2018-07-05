@@ -16,19 +16,6 @@
   color: #fff;
 }
 
-.quests-item {
-  margin: 2vh 0vh;
-  cursor: pointer;
-  border-bottom: 1px dotted;
-  width: max-content;
-}
-
-.quests-items-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .prop-content {
   padding: 2vh 4vw;
   margin: 1vh 1vw;

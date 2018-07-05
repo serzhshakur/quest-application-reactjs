@@ -50,7 +50,7 @@ export default class extends PureComponent {
 
     setNewValueForQuestionsItem(__id, propName, propValue) {
         let arr = [...this.state.unsavedQuest[this.QUESTIONS_ARRAY_NAME]];
-        let index = arr.findIndex(e => e.__id == __id);
+        let index = arr.findIndex(e => e.__id === __id);
         let item = { ...arr[index] };
         item[propName] = propValue;
         arr[index] = item;
@@ -59,7 +59,7 @@ export default class extends PureComponent {
 
     removeItemFromQuestionsArray(__id) {
         let arr = [...this.state.unsavedQuest[this.QUESTIONS_ARRAY_NAME]];
-        const index = arr.findIndex(e => e.__id == __id);
+        const index = arr.findIndex(e => e.__id === __id);
         arr.splice(index, 1);
         this.setNewValue(this.QUESTIONS_ARRAY_NAME, arr);
     }

@@ -24,8 +24,7 @@
     text-align: center;
 }
 
-.panel__label {
-    padding: 2.5vh 12vw 2.5vh 7vw;
+.accordion-item-label {
     position: relative;
     width: 100%;
     border: none;
@@ -36,7 +35,68 @@
     -webkit-transition: color 0.2s linear;
 }
 
-.panel__label:focus {
+.panel__label {
+    padding: 2.5vh 12vw 2.5vh 7vw;
+}
+
+.quests-item-label {
+    padding: 1.4vh 3vw;
+}
+
+.quests-item {
+    margin: 1.8vh 8vw;
+    background: var(--color-light);
+    color: inherit;
+    border: solid 1px var(--color-dark);
+}
+
+.action-button {
+    font-size: 4.3vw;
+    padding: 0.5vh 3vw;
+    border: none;
+    color: var(--color-light);
+    background: var(--color-dark);
+}
+.action-button-main {
+    width: 23vw;
+}
+
+.action-button-safe {
+    background: var(--color-safe);
+}
+
+.action-button-danger {
+    background: var(--color-danger);
+}
+
+.action-button-container {
+    position: relative;
+
+}
+
+.actions-confirmation-container {
+    width: 23vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.action-button-descr {
+    position: absolute;
+    left: 25%;
+    top: -3vh;
+    font-size: 4vw;
+    color: var(--color-danger);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s linear;
+}
+
+[aria-expanded="true"] .action-button-descr-visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.accordion-item-label:focus {
     outline: none;
 }
 
