@@ -1,12 +1,13 @@
 import React from 'react'
-import BottleSvg from './BottleSvg.js'
+import HintsSvg from './svg/HintsSvg.js'
+import WrongAnswers from './svg/WrongAnswersSvg'
 
 
 const PenaltiesContainer = (props) => (
     <div id='penalties'>
-        <div id="penalties-wrong-answers-label" className="tooltip-container">&#8364;</div>
+        <WrongAnswers />
         <div className="penalties-units" id="penalties-wrong-answers">{props.wrongAnswers}</div>
-        <BottleSvg />
+        <HintsSvg />
         <div className="penalties-units" id="penalties-hint-retrievals">{props.hintRetrievals}</div>
     </div>
 )
