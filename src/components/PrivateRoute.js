@@ -1,13 +1,13 @@
 import { Redirect, Route } from 'react-router-dom'
 import React from 'react'
 
-export default ({ component: Component, isRegistered, ...rest }) => (
+export default ({ component: Component, isTrue, redirectPath, ...rest }) => (
     <Route {...rest} render={(props) => (
-        isRegistered ? (
+        isTrue ? (
             <Component />
         ) : (
                 <Redirect to={{
-                    pathname: '/register',
+                    pathname: redirectPath,
                     state: { from: props.location }
                 }} />
             )

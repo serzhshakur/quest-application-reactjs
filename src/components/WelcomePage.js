@@ -1,6 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { fetchIntro } from '../api/api.js'
+import {Link} from 'react-router-dom'
+import {fetchIntro} from '../api/api.js'
 
 class WelcomePage extends React.PureComponent {
     constructor(props) {
@@ -11,13 +11,13 @@ class WelcomePage extends React.PureComponent {
     }
 
     componentDidMount() {
-        fetchIntro().then(text => this.setState({ introText: text }))
+        fetchIntro().then(text => this.setState({introText: text}))
     }
 
     render() {
         return (
             <div className='regular-page'>
-                <div id='introductory-paragraph' dangerouslySetInnerHTML={{ __html: this.state.introText }} />
+                <div id='introductory-paragraph' dangerouslySetInnerHTML={{__html: this.state.introText}}/>
                 <div>
                     <Link to='/quest'>
                         <button className="regular-button">Вперед</button>

@@ -9,7 +9,7 @@ export default class extends PureComponent {
         super(props)
         this.state = {
             id: '',
-            isIncorrectCode: false,
+            isIncorrect: false,
             isRegistered: false
         }
     }
@@ -19,12 +19,12 @@ export default class extends PureComponent {
         const onRegister = this.props.onRegister
         const id = this.state.id;
         if (!id) {
-            this.setState({ isIncorrectCode: true })
+            this.setState({ isIncorrect: true })
         } else {
             validateId(id)
                 .then(r => {
                     if (r.status >= 400) {
-                        this.setState({ isIncorrectCode: true })
+                        this.setState({ isIncorrect: true })
                     }
                     else {
                         onRegister()
@@ -37,20 +37,20 @@ export default class extends PureComponent {
     onInput(e) {
         this.setState({
             id: e.target.value,
-            isIncorrectCode: false
+            isIncorrect: false
         })
     }
 
     render() {
-        return this.state.isRegistered ? (<Redirect to='/' />) : (
+        return this.state.isRegistered ? (<Redirect to={this.props.redirectPath} />) : (
             <div className="regular-page">
                 <p>Приветствуем вас!</p>
                 <p>Для начала квеста введите пожалуйста полученный код</p>
                 <form onSubmit={this.register.bind(this)}>
-                    <div><input type='text' onInput={this.onInput.bind(this)} className={this.state.isIncorrectCode ? 'incorrect' : ''} /></div>
+                    <div><input type='text' onInput={this.onInput.bind(this)} className={this.state.isIncorrect ? 'incorrect' : ''} /></div>
                     <div><input type='submit' className="regular-button" value='Продолжить' /></div>
                 </form>
-                {this.state.isIncorrectCode ? <div className='error-message'>Неверный код</div> : null}
+                {this.state.isIncorrect ? <div className='error-message'>Неверный код</div> : null}
             </div>
         )
     }

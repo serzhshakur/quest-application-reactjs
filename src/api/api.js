@@ -4,13 +4,9 @@ const baseUrl = __API_HOST;
 export function validateId(id) {
     const options = {
         method: "POST",
-        headers: { 'Content-Type': 'text/plain' },
+        headers: {'Content-Type': 'text/plain'},
         body: id,
         credentials: 'include',
-        // headers: {
-        //     'Access-Control-Allow-Origin': baseUrl
-        // }
-        // credentials: 'same-origin'
     };
     return fetch(`${baseUrl}/sign-in/`, options)
 }
@@ -23,6 +19,16 @@ export function fetchHint() {
 export function fetchIntro() {
     return fetch(`${baseUrl}/questions/intro`, {credentials: 'include'})
         .then(response => response.text())
+}
+
+export function renameSession(value) {
+    const options = {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({name: value}),
+        credentials: 'include'
+    };
+    return fetch(`${baseUrl}/session`, options)
 }
 
 export function fetchFinalWords() {

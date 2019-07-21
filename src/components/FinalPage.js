@@ -25,12 +25,13 @@ class FinalPage extends React.PureComponent {
     }
 
     render() {
-        const { wrongAnswers, hintRetrievals, time } = this.state.content;
+        const { wrongAnswers, hintRetrievals, time, name } = this.state.content;
         const { hours, minutes, seconds } = this.calculateTime(time);
         return (
             <div className="regular-page">
                 <p>{this.state.content.finalWords}</p>
-                <p className="bold-text">Твои результаты:</p>
+                <p>Командa "<b>{name}</b>"</p>
+                <p className='bold-text'>Результаты:</p>
                 <p>Неверных ответов <span className="bold-text">{wrongAnswers}</span></p>
                 <p>Количество подсказок <span className="bold-text">{hintRetrievals}</span></p>
                 <p>Время выполнения <span className="bold-text">{`${hours}:${minutes}:${seconds}`}</span></p>
