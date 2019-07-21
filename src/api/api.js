@@ -16,24 +16,24 @@ export function validateId(id) {
 }
 
 export function fetchHint() {
-    return fetch(`${baseUrl}/questions/hint`, { credentials: 'include' })
+    return fetch(`${baseUrl}/questions/hint`, {credentials: 'include'})
         .then(response => response.json())
 }
 
 export function fetchIntro() {
-    return fetch(`${baseUrl}/questions/intro`, { credentials: 'include' })
+    return fetch(`${baseUrl}/questions/intro`, {credentials: 'include'})
         .then(response => response.text())
 }
 
 export function fetchFinalWords() {
-    return fetch(`${baseUrl}/questions/final`, { credentials: 'include' })
+    return fetch(`${baseUrl}/questions/final`, {credentials: 'include'})
         .then(response => response.json())
 }
 
 export function postAnswer(answer) {
     const options = {
         method: "POST",
-        headers: { 'Content-Type': 'text/plain' },
+        headers: {'Content-Type': 'text/plain'},
         body: answer,
         credentials: 'include'
     };
@@ -42,6 +42,6 @@ export function postAnswer(answer) {
 }
 
 export function fetchQuestion() {
-    return fetch(`${baseUrl}/questions`, { credentials: 'include' })
+    return fetch(`${baseUrl}/questions`, {credentials: 'include'})
         .then(response => response.json())
 }
