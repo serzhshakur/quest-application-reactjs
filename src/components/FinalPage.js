@@ -1,5 +1,6 @@
 import React from 'react'
-import { fetchFinalWords } from '../api/api.js'
+import {fetchFinalWords} from '../api/api.js'
+import {calculateTime} from '../utils/timeUtils'
 
 class FinalPage extends React.PureComponent {
     constructor(props) {
@@ -10,27 +11,16 @@ class FinalPage extends React.PureComponent {
     }
 
     componentDidMount() {
-        fetchFinalWords().then(content => this.setState({ content }))
-    }
-
-    calculateTime(secondsTotal) {
-        const seconds = secondsTotal % 60;
-        const minutesTotal = secondsTotal > 60 ? Math.floor(secondsTotal / 60) : 0;
-        const hours = minutesTotal > 60 ? Math.floor(minutesTotal / 60) : 0;
-        const minutes = hours > 0 ? minutesTotal % 60 : minutesTotal;
-
-        const minutesString = `${minutes}`.padStart(2, "0");
-        const secondsString = `${seconds}`.padStart(2, "0");
-        return { hours, minutes: minutesString, seconds: secondsString };
+        fetchFinalWords().then(content => this.setState({content}))
     }
 
     render() {
-        const { wrongAnswers, hintRetrievals, time, name } = this.state.content;
-        const { hours, minutes, seconds } = this.calculateTime(time);
+        const {wrongAnswers, hintRetrievals, time, name} = this.state.content;
+        const {hours, minutes, seconds} = calculateTime(time);
         return (
             <div className="regular-page">
                 <p>{this.state.content.finalWords}</p>
-                <p>Командa "<b>{name}</b>"</p>
+                <p>Командa "<span className="bold-text">{name}</span>"</p>
                 <p className='bold-text'>Результаты:</p>
                 <p>Неверных ответов <span className="bold-text">{wrongAnswers}</span></p>
                 <p>Количество подсказок <span className="bold-text">{hintRetrievals}</span></p>

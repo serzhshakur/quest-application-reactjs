@@ -1,11 +1,9 @@
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
-import { fetchQuests } from '../api/apiAdmin'
-import styles from '../styles/admin.css'
+import {Link, Redirect} from 'react-router-dom'
+import {deleteQuest, fetchQuests} from '../api/apiAdmin'
 import Section from "./Section.js";
 import QuestsListAccordion from './QuestsListAccordion';
 import ActionButton from './ActionButton';
-import { deleteQuest } from "../api/apiAdmin";
 
 class Main extends React.PureComponent {
     constructor(props) {
@@ -18,8 +16,8 @@ class Main extends React.PureComponent {
 
     updateQuests() {
         fetchQuests()
-            .then(quests => this.setState({ quests }))
-            .catch(() => this.setState({ shouldRedirectToLoginScreen: true }))
+            .then(quests => this.setState({quests}))
+            .catch(() => this.setState({shouldRedirectToLoginScreen: true}))
     }
 
     doQuestDeletion(id) {
@@ -33,38 +31,41 @@ class Main extends React.PureComponent {
     render() {
         return (
             <React.Fragment>
-                {this.state.shouldRedirectToLoginScreen && <Redirect to='/admin/login' />}
+                {this.state.shouldRedirectToLoginScreen && <Redirect to='/admin/login'/>}
                 <div className="admin-page">
                     {this.state.quests &&
-                        <div>
-                            <QuestsListAccordion>
-                                {this.state.quests.map(({ name, id }) => (
-                                    <Section
-                                        className='quests-item'
-                                        key={id}
-                                        title={name}
-                                    >
-                                        <div className="quests-item-buttons">
-                                            <button className='action-button'>
-                                                <Link to={`/admin/edit-quest/${id}`}>Open</Link>
-                                            </button>
-                                            <ActionButton
-                                                className='action-button'
-                                                title="Delete"
-                                                action={() => this.doQuestDeletion(id)}
-                                            />
-                                        </div>
-                                    </Section>
-                                ))
-                                }
-                            </QuestsListAccordion>
+                    <div>
+                        <QuestsListAccordion>
+                            {this.state.quests.map(({name, id}) => (
+                                <Section
+                                    className='quests-item'
+                                    key={id}
+                                    title={name}
+                                >
+                                    <div className="quests-item-buttons">
+                                        <button className='action-button'>
+                                            <Link to={`/admin/edit-quest/${id}`}>Open</Link>
+                                        </button>
+                                        <button className='action-button'>
+                                            <Link to={`/admin/quest-statistics/${id}`}>Statistics</Link>
+                                        </button>
+                                        <ActionButton
+                                            className='action-button'
+                                            title="Delete"
+                                            action={() => this.doQuestDeletion(id)}
+                                        />
+                                    </div>
+                                </Section>
+                            ))
+                            }
+                        </QuestsListAccordion>
 
-                            <Link to='/admin/create-quest'>
-                                <button id='submit-new-quest' className="admin-button">
-                                    Create new quest
+                        <Link to='/admin/create-quest'>
+                            <button id='submit-new-quest' className="admin-button">
+                                Create new quest
                             </button>
-                            </Link>
-                        </div>
+                        </Link>
+                    </div>
                     }
                 </div>
             </React.Fragment>
