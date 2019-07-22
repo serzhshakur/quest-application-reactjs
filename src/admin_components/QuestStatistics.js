@@ -36,16 +36,16 @@ export default class extends PureComponent {
                 <h1>{questName}</h1>
                 <h2>Quest id: {questId}</h2>
                 {this.state.sessions.map(session => {
-                    const {name, wrongAnswers, hintRetrievals, created, finished, time} = session
+                    const {name, wrongAnswers, hintRetrievals, createdDate, finishedDate, time} = session
                     const {hours, minutes, seconds} = calculateTime(time)
-                    return <div key={created}>
+                    return <div key={session.created}>
                         <div>--------------------------------</div>
                         <p>Team name: <b>{name}</b></p>
-                        <p>Created: <b>{created}</b></p>
-                        <p>Finished: <b>{finished || 'not finished yet'}</b></p>
+                        <p>Created: <b>{createdDate}</b></p>
+                        <p>Finished: <b>{finishedDate || 'not finished yet'}</b></p>
                         <p>Wrong answers: <b>{wrongAnswers}</b></p>
                         <p>Hint retrievals: <b>{hintRetrievals}</b></p>
-                        {finished && (<p>Total time: <b>{`${hours}:${minutes}:${seconds}`}</b></p>)}
+                        {finishedDate && (<p>Total time: <b>{`${hours}:${minutes}:${seconds}`}</b></p>)}
                     </div>
                 })}
                 < button className="admin-button" onClick={this.goBack.bind(this)}>{'<'}</button>

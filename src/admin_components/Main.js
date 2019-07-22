@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link, Redirect} from 'react-router-dom'
+import styles from '../styles/admin.css'
 import {deleteQuest, fetchQuests} from '../api/apiAdmin'
 import Section from "./Section.js";
 import QuestsListAccordion from './QuestsListAccordion';
