@@ -36,13 +36,14 @@ export default class extends PureComponent {
                 <h1>{questName}</h1>
                 <h2>Quest id: {questId}</h2>
                 {this.state.sessions.map(session => {
-                    const {name, wrongAnswers, hintRetrievals, createdDate, finishedDate, time} = session
+                    const {name, wrongAnswers, hintRetrievals, createdDate, finishedDate, time, questionIndex} = session
                     const {hours, minutes, seconds} = calculateTime(time)
                     return <div key={session.created}>
                         <div>--------------------------------</div>
-                        <p>Team name: <b>{name}</b></p>
+                        <p>Team name: {name ? <b>{name}</b> : <i>unnamed</i>}</p>
                         <p>Created: <b>{createdDate}</b></p>
-                        <p>Finished: <b>{finishedDate || 'not finished yet'}</b></p>
+                        <p>Finished: {finishedDate ? <b>{finishedDate}</b> : <i>not finished yet</i>}</p>
+                        <p>Steps completed: <b>{questionIndex}</b></p>
                         <p>Wrong answers: <b>{wrongAnswers}</b></p>
                         <p>Hint retrievals: <b>{hintRetrievals}</b></p>
                         {finishedDate && (<p>Total time: <b>{`${hours}:${minutes}:${seconds}`}</b></p>)}
