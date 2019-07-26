@@ -135,6 +135,7 @@ form input:not([type='submit']) {
 .error-message {
     color: #ffd5da;
     margin-top: 3vh;
+    font-size: 2.4vh;
 }
 
 #hint-container {

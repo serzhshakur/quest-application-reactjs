@@ -1,8 +1,7 @@
 import React from 'react'
 import RegisterPage from './RegisterPage.js'
-import WelcomePage from './WelcomePage.js'
 import QuestPage from './QuestPage.js'
-import TeamNamePage from './TeamNamePage.js'
+import WelcomePage from './WelcomePage.js'
 import FinalPage from './FinalPage.js'
 import PrivateRoute from './PrivateRoute.js'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
@@ -30,16 +29,13 @@ class App extends React.PureComponent {
                         <PrivateRoute exact path='/'
                                       isTrue={this.state.isRegistered}
                                       redirectPath='/register'
-                                      component={WelcomePage}/>
-                        <Route path='/register' render={() => (
-                            <RegisterPage
-                                onRegister={this.onRegister.bind(this)}
-                                redirectPath='/team-name'
-                            />
-                        )}/>
-                        <Route path='/team-name' render={() => (
-                            <TeamNamePage redirectPath='/quest'/>
-                        )}/>
+                                      component={() => (<WelcomePage redirectPath='/quest'/>)}/>
+                        <Route path='/register'
+                               render={() => (
+                                   <RegisterPage
+                                       onRegister={this.onRegister.bind(this)}
+                                       redirectPath='/'/>
+                               )}/>
                         <Route path='/quest' component={QuestPage}/>
                         <Route path='/finish' component={FinalPage}/>
                     </Switch>
