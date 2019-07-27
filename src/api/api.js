@@ -21,6 +21,10 @@ export function fetchIntro() {
         .then(response => response.text())
 }
 
+export function fetchSession() {
+    return fetch(`${baseUrl}/session`, {credentials: 'include'})
+}
+
 export function renameSession(value) {
     const options = {
         method: "PUT",
