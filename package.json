@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "fetch": "^1.1.0",
-    "npm": "^6.9.0",
+    "npm": "^6.13.4",
     "react-animate-height": "^1.0.2"
   },
   "devDependencies": {
