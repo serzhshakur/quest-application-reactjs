@@ -42,6 +42,7 @@ export default class extends PureComponent {
             text: "",
             answer: "",
             hint: "",
+            images: [],
             __id: this.generateRandomAlphanumeric()
         };
         arr.push(defaultQuestion);
