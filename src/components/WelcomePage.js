@@ -7,9 +7,9 @@ export default class extends PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            inputValue: '',
+            teamName: '',
             isIncorrect: false,
-            isNameGiven: false
+            canProceed: false
         }
     }
 
@@ -19,14 +19,14 @@ export default class extends PureComponent {
 
     submit(e) {
         e.preventDefault();
-        const inputValue = this.state.inputValue;
-        if (!inputValue) {
+        const teamName = this.state.teamName;
+        if (!teamName) {
             this.setState({isIncorrect: true})
         } else {
-            renameSession(inputValue)
+            renameSession(teamName)
                 .then(r => {
                     if (r.status === 200) {
-                        this.setState({isNameGiven: true})
+                        this.setState({canProceed: true})
                     } else {
                         this.setState({isIncorrect: true})
                     }
@@ -34,21 +34,21 @@ export default class extends PureComponent {
         }
     }
 
-    onInput(e) {
+    onNameInput(e) {
         this.setState({
-            inputValue: e.target.value,
+            teamName: e.target.value,
             isIncorrect: false
         })
     }
 
     render() {
-        return this.state.isNameGiven ? (<Redirect to={this.props.redirectPath}/>) : (
+        return this.state.canProceed ? (<Redirect to={this.props.redirectPath}/>) : (
             <div className="regular-page">
                 <div id='introductory-paragraph' dangerouslySetInnerHTML={{__html: this.state.introText}}/>
                 <form onSubmit={this.submit.bind(this)}>
                     <div>
                         <label>Введите свое имя или имя Вашей команды</label>
-                        <input type='text' onInput={this.onInput.bind(this)}
+                        <input type='text' onInput={this.onNameInput.bind(this)}
                                className={this.state.isIncorrect ? 'incorrect' : ''}/>
                     </div>
                     <div>
