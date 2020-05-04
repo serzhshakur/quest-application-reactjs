@@ -1,5 +1,4 @@
-import React from 'react'
-import {PureComponent} from 'react'
+import React, {PureComponent} from 'react'
 import {renameSession} from '../api/api.js'
 import {Redirect} from "react-router-dom";
 import {fetchIntro} from "../api/api";
@@ -26,7 +25,7 @@ export default class extends PureComponent {
         } else {
             renameSession(inputValue)
                 .then(r => {
-                    if (r.status == 200) {
+                    if (r.status === 200) {
                         this.setState({isNameGiven: true})
                     } else {
                         this.setState({isIncorrect: true})
@@ -46,11 +45,15 @@ export default class extends PureComponent {
         return this.state.isNameGiven ? (<Redirect to={this.props.redirectPath}/>) : (
             <div className="regular-page">
                 <div id='introductory-paragraph' dangerouslySetInnerHTML={{__html: this.state.introText}}/>
-                <p>Введите свое имя или имя Вашей команды</p>
                 <form onSubmit={this.submit.bind(this)}>
-                    <div><input type='text' onInput={this.onInput.bind(this)}
-                                className={this.state.isIncorrect ? 'incorrect' : ''}/></div>
-                    <div><input type='submit' className="regular-button" value='Продолжить'/></div>
+                    <div>
+                        <label>Введите свое имя или имя Вашей команды</label>
+                        <input type='text' onInput={this.onInput.bind(this)}
+                               className={this.state.isIncorrect ? 'incorrect' : ''}/>
+                    </div>
+                    <div>
+                        <input type='submit' className="regular-button" value='Продолжить'/>
+                    </div>
                 </form>
                 {this.state.isIncorrect ? <div className='error-message'>Поле не должно быть пустым</div> : null}
             </div>)

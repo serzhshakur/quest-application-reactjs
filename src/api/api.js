@@ -35,6 +35,14 @@ export function renameSession(value) {
     return fetch(`${baseUrl}/session`, options)
 }
 
+export function deleteSession() {
+    const options = {
+        method: "DELETE",
+        credentials: 'include'
+    };
+    return fetch(`${baseUrl}/session`, options)
+}
+
 export function fetchFinalWords() {
     return fetch(`${baseUrl}/questions/final`, {credentials: 'include'})
         .then(response => response.json())

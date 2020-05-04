@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Section from "./Section.js";
-import styles from '../styles/accordion.css';
 
 export default class extends React.Component {
     constructor(props) {
@@ -12,11 +11,10 @@ export default class extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.children.length != this.props.children.length) {
-            this.setState({ activeTab: -1 });
+    componentDidUpdate(prevProps) {
+        if (prevProps.children.length !== this.props.children.length) {
+            this.setState({activeTab: -1});
         }
-
     }
 
     activateTab(index) {
@@ -26,7 +24,7 @@ export default class extends React.Component {
     }
 
     render() {
-        const { activeTab } = this.state;
+        const {activeTab} = this.state;
         return (
             <div className="accordion">
                 {this.props.children.map((child, index) => {
