@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {renameSession} from '../api/api.js'
+import {updateSession} from '../api/api.js'
 import {Redirect} from "react-router-dom";
 import {fetchIntro} from "../api/api";
 import PageInputBlock from "./PageInputBlock";
@@ -8,6 +8,7 @@ export default (props) => {
     const [introText, setIntroText] = useState('')
     const [teamName, setTeamName] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
+    const [apiError, setApiError] = useState('')
     const [isTeamNameIncorrect, setIsTeamIncorrect] = useState(false)
     const [isPhoneNumberIncorrect, setIsPhoneNumberIncorrect] = useState(false)
     const [canProceed, setCanProceed] = useState(false)
@@ -21,21 +22,24 @@ export default (props) => {
         []
     )
 
-    function submit(e) {
+    async function submit(e) {
         e.preventDefault();
         if (!teamName) {
             setIsTeamIncorrect(true)
         } else if (!phoneNumber) {
             setIsPhoneNumberIncorrect(true)
         } else {
-            renameSession(teamName)
-                .then(r => {
-                    if (r.status === 200) {
-                        setCanProceed(true)
-                    } else {
-                        setIsTeamIncorrect(true)
-                    }
+            const response = await updateSession(
+                {
+                    name: teamName,
+                    phone: phoneNumber
                 })
+            if (response.status === 200) {
+                setCanProceed(true)
+            } else {
+                const body = await response.json()
+                setApiError(body.error)
+            }
         }
     }
 
@@ -67,6 +71,7 @@ export default (props) => {
                 />
                 <div>
                     <input type='submit' className="regular-button" value='Продолжить'/>
+                    {apiError ? <div className='error-message'>{apiError}</div> : null}
                 </div>
             </form>
         </div>)

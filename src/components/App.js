@@ -8,7 +8,6 @@ import {fetchSession} from '../api/api'
 import StickyHeader from './StickyHeader'
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
 
-
 class App extends React.PureComponent {
     constructor(props) {
         super(props)

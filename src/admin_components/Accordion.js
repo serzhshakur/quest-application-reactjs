@@ -27,7 +27,7 @@ export default class extends React.Component {
                 <div className='prop-title'>{title}</div>
                 {unsavedContent.map((entry, index) => {
                     const { __id, ...question } = entry;
-                    const savedContentEntry = savedContent.find(e => e.__id == __id);
+                    const savedContentEntry = savedContent.find(e => e.__id === __id);
                     const isNewItem = savedContentEntry === undefined;
                     return (
                         <Panel
