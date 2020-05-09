@@ -1,57 +1,47 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom'
-import { PureComponent } from 'react'
-import { validateId } from '../api/api.js'
-import styles from '../styles/input.css'
+import React, {useState} from 'react'
+import {Redirect} from 'react-router-dom'
+import {validateId} from '../api/api.js'
+import PageInputBlock from "./PageInputBlock";
 
-export default class extends PureComponent {
-    constructor(props) {
-        super(props)
-        this.state = {
-            id: '',
-            isIncorrect: false,
-            isRegistered: false
-        }
-    }
+export default (props) => {
+    const [id, setId] = useState('')
+    const [isIncorrect, setIsIncorrect] = useState(false)
+    const [isRegistered, setIsRegistered] = useState(false)
 
-    register(e) {
+    function register(e) {
         e.preventDefault();
-        const onRegister = this.props.onRegister
-        const id = this.state.id;
+        const onRegister = props.onRegister
         if (!id) {
-            this.setState({ isIncorrect: true })
+            setIsIncorrect(true)
         } else {
             validateId(id)
                 .then(r => {
                     if (r.status >= 400) {
-                        this.setState({ isIncorrect: true })
-                    }
-                    else {
+                        setIsIncorrect(true)
+                    } else {
                         onRegister()
-                        this.setState({ isRegistered: true })
+                        setIsRegistered(true)
                     }
                 })
         }
     }
 
-    onInput(e) {
-        this.setState({
-            id: e.target.value,
-            isIncorrect: false
-        })
+    function onInput(e) {
+        setId(e.target.value)
+        setIsIncorrect(false)
     }
 
-    render() {
-        return this.state.isRegistered ? (<Redirect to={this.props.redirectPath} />) : (
-            <div className="regular-page">
-                <p>Приветствуем вас!</p>
-                <p>Для начала квеста введите пожалуйста полученный код</p>
-                <form onSubmit={this.register.bind(this)}>
-                    <div><input type='text' onInput={this.onInput.bind(this)} className={this.state.isIncorrect ? 'incorrect' : ''} /></div>
-                    <div><input type='submit' className="regular-button" value='Продолжить' /></div>
-                </form>
-                {this.state.isIncorrect ? <div className='error-message'>Неверный код</div> : null}
-            </div>
-        )
-    }
+    return isRegistered ? (<Redirect to={props.redirectPath}/>) : (
+        <div className="regular-page">
+            <p>Приветствуем вас!</p>
+            <p>Для начала квеста введите пожалуйста полученный код</p>
+            <form onSubmit={register}>
+                <PageInputBlock
+                    onInput={onInput}
+                    error={isIncorrect ? "Неверный код" : null}
+                />
+                <div><input type='submit' className="regular-button" value='Продолжить'/></div>
+            </form>
+        </div>
+    )
 }
