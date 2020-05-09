@@ -10,16 +10,15 @@ export default (props) => {
 
     function register(e) {
         e.preventDefault();
-        const onRegister = props.onRegister
         if (!id) {
             setIsIncorrect(true)
         } else {
             validateId(id)
                 .then(r => {
-                    if (r.status >= 400) {
+                    if (r.status !== 200) {
                         setIsIncorrect(true)
                     } else {
-                        onRegister()
+                        props.onRegister()
                         setIsRegistered(true)
                     }
                 })
