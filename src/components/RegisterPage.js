@@ -5,29 +5,28 @@ import PageInputBlock from "./PageInputBlock";
 
 export default (props) => {
     const [id, setId] = useState('')
-    const [isIncorrect, setIsIncorrect] = useState(false)
+    const [error, setError] = useState()
     const [isRegistered, setIsRegistered] = useState(false)
 
-    function register(e) {
+    async function register(e) {
         e.preventDefault();
         if (!id) {
-            setIsIncorrect(true)
+            setError("Необходимо ввести код")
         } else {
-            validateId(id)
-                .then(r => {
-                    if (r.status !== 200) {
-                        setIsIncorrect(true)
-                    } else {
-                        props.onRegister()
-                        setIsRegistered(true)
-                    }
-                })
+            const response = await validateId(id)
+            if (response.status !== 200) {
+                const apiBody = await response.json()
+                setError(apiBody.error ? apiBody.error : "Неверный код")
+            } else {
+                props.onRegister()
+                setIsRegistered(true)
+            }
         }
     }
 
     function onInput(e) {
         setId(e.target.value)
-        setIsIncorrect(false)
+        setError(null)
     }
 
     return isRegistered ? (<Redirect to={props.redirectPath}/>) : (
@@ -37,7 +36,7 @@ export default (props) => {
             <form onSubmit={register}>
                 <PageInputBlock
                     onInput={onInput}
-                    error={isIncorrect ? "Неверный код" : null}
+                    error={error}
                 />
                 <div><input type='submit' className="regular-button" value='Продолжить'/></div>
             </form>
