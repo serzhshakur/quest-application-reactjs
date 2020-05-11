@@ -1,47 +1,79 @@
 .admin-page {
-  margin: 8vh 2vw;
-  padding: 1vh 1vw;
+    margin: 8vh 2vw;
+    padding: 1vh 1vw;
 }
 
-.admin-page .admin-button {
-  background-color: var(--color-dark);
-  border: 0px;
-  margin: 4vh 1vw;
-  padding: 2vh 4vw;
-  cursor: pointer;
-  color: #fff;
+.admin-button {
+    background-color: var(--color-dark);
+    border: 0;
+    margin: 4vh 1vw;
+    padding: 2vh 4vw;
+    cursor: pointer;
+    color: #fff;
 }
 
 .admin-button a {
-  color: #fff;
+    color: #fff;
 }
 
 .prop-content {
-  padding: 2vh 4vw;
-  margin: 1vh 1vw;
-  white-space: pre-wrap;
+    padding: 2vh 4vw;
+    margin: 1vh 1vw;
+    white-space: pre-wrap;
 }
 
 .prop-content[contenteditable=true] {
-  background: #FBFBFA;
+    background: #FBFBFA;
 }
 
 .prop-content[contenteditable=true].unsaved {
-  color: #C7818B;
+    color: #C7818B;
 }
 
 .prop-content[contenteditable=true]:focus {
-  background: #FBFBFA;
+    background: #FBFBFA;
+}
+
+.codes-table {
+    padding: 10px;
+    margin: 0 auto 40px auto;
+    min-width: 80%;
+}
+
+.codes-table, .codes-table th, .codes-table tfoot {
+    border-collapse: collapse;
+    border: 1px solid var(--color-dark);
+}
+
+.codes-table th, .codes-table td {
+    padding: 5px;
+}
+
+.codes-table .admin-button {
+    margin: 5px;
+    padding: 10px;
+}
+
+.stats {
+    margin: 20px 0;
+}
+
+.stat {
+    margin: 10px 0;
+}
+
+.stat-value {
+    font-weight: bold;
 }
 
 .quest-props {
-  margin: 3vh 4vw;
+    margin: 3vh 4vw;
 }
 
 .quest-prop {
-  margin: 5vh 0;
+    margin: 5vh 0;
 }
 
 .prop-title {
-  font-weight: bold;
+    font-weight: bold;
 }

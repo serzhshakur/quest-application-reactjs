@@ -44,6 +44,12 @@ export function fetchQuest(questId) {
         .then(response => handleResponse(response).json())
 }
 
+export function fetchCodes(questId) {
+    return fetch(`${baseUrl}/my-admin/quests/${questId}/codes`,
+        {headers: {'x-access-token': sessionStorage.token}})
+        .then(response => handleResponse(response).json())
+}
+
 export function postQuest(questDetails) {
     const options = {
         method: "POST",
