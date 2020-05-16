@@ -19,12 +19,12 @@ export default ({questId}) => {
         const codes = await fetchCodes(questId)
         setQuestCodes(codes)
         setLoading(false)
-    })
+    }, [questId])
 
     const newCodeHandler = useCallback(async () => {
         const response = await generateNewCode(questId)
         setQuestCodes(response.codes)
-    })
+    }, [questId])
 
     return (
         <div>

@@ -5,7 +5,7 @@ import PageInputBlock from "./PageInputBlock";
 
 export default (props) => {
     const [id, setId] = useState('')
-    const [error, setError] = useState()
+    const [error, setError] = useState('')
     const [isRegistered, setIsRegistered] = useState(false)
 
     async function register(e) {
@@ -26,7 +26,7 @@ export default (props) => {
 
     function onInput(e) {
         setId(e.target.value)
-        setError(null)
+        setError('')
     }
 
     return isRegistered ? (<Redirect to={props.redirectPath}/>) : (
