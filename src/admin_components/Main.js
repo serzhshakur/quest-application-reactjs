@@ -48,7 +48,10 @@ class Main extends React.PureComponent {
                                             <Link to={`/admin/edit-quest/${id}`}>Open</Link>
                                         </button>
                                         <button className='action-button'>
-                                            <Link to={`/admin/quest-statistics/${id}`}>Statistics</Link>
+                                            <Link to={{
+                                                pathname: `/admin/quest-statistics/${id}`,
+                                                state: {questName: name}
+                                            }}>Statistics</Link>
                                         </button>
                                         <ActionButton
                                             className='action-button'

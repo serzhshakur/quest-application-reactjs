@@ -1,4 +1,4 @@
 import React from 'react'
 
 
-export default props => <div id='spinner' />
+export default () => <div className='spinner' />

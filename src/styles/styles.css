@@ -221,7 +221,7 @@ form input:not([type='submit']) {
     width: 45%;
 }
 
-#spinner, #hint {
+.spinner, #hint {
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -ms-transition: all 0.4s ease-in-out;
@@ -246,7 +246,7 @@ form input:not([type='submit']) {
     border-bottom: 1px dotted;
 }
 
-#spinner {
+.spinner {
     width: 25px;
     height: 25px;
     margin-right: 10px;
@@ -261,6 +261,11 @@ form input:not([type='submit']) {
     -moz-animation: circle infinite .75s linear;
     animation: circle infinite .75s linear;
     border-top: 4px solid #a3d1c7;
+}
+
+.spinner.loading {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Hint Loading effect */
