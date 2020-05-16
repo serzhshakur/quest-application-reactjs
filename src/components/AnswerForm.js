@@ -10,8 +10,8 @@ class AnswerForm extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.questionNumber > this.props.questionNumber) {
+    componentDidUpdate(prevProps) {
+        if (prevProps.questionNumber < this.props.questionNumber) {
             this.refs.answerInput.value = ''
         }
     }
@@ -47,4 +47,4 @@ class AnswerForm extends React.Component {
     }
 }
 
-export default AnswerForm;
+export default AnswerForm

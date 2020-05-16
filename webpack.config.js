@@ -3,7 +3,10 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: [
+        'regenerator-runtime/runtime',
+        './src/index.js'
+    ],
     output: {
         filename: 'index_bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -24,6 +27,14 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                    {
+                        loader: 'file-loader'
+                    },
+                ]
             }
         ]
     },

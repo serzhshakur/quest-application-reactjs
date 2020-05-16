@@ -35,6 +35,7 @@ export default class extends React.Component {
                     isEnd: response.isEnd,
                     text: response.text,
                     images: response.images,
+                    questionNumber: response.questionNumber,
                     wrongAnswers: response.wrongAnswers,
                     hintRetrievals: response.hintRetrievals
                 }

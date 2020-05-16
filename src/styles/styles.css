@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Arsenal&subset=cyrillic);
+
 :root {
     --base-font-size: 5vw;
     --base-font-color: #073c4e;
@@ -40,10 +41,34 @@ input:not([type='submit']) {
     background-color: #444;
     color: #fff;
     position: fixed;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
     top: 7px;
     left: 0;
     width: 100%;
     opacity: 0.7;
+}
+
+#sticky-title h1 {
+    margin: 0;
+    font-size: 4vh;
+}
+
+#sticky-title button {
+    border: none;
+    background: none;
+}
+
+#sticky-title img {
+    width: 25px;
+}
+
+.one-third {
+    flex-basis: 10%;
+    display: flex;
+    align-items: center;
 }
 
 /* ------------------------------------------ */
@@ -63,6 +88,7 @@ input:not([type='submit']) {
     display: flex;
     justify-content: center;
 }
+
 .quests-item-buttons > * {
     margin: 0 1.4vw;
 }
@@ -108,8 +134,27 @@ form input:not([type='submit']) {
     border: solid 1px var(--color-dark);
 }
 
-.regular-page form input:not([type='submit']) {
-    margin: 30px 0;
+/*.regular-page form input:not([type='submit']) {*/
+/*    margin: 30px 0;*/
+/*}*/
+
+.input-block {
+    margin: 33px 0;
+}
+
+.input-block label {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.input-block input {
+    margin: 0;
+}
+
+.input-block .error {
+    margin: 5px 0;
+    color: #ffd5da;
+    font-size: 2.4vh;
 }
 
 .light-page form input:not([type='submit']) {
@@ -160,23 +205,23 @@ form input:not([type='submit']) {
     margin-top: 2vh;
 }
 
-.question-img:first-child:nth-last-child(6), .question-img:first-child:nth-last-child(6)~.question-img {
+.question-img:first-child:nth-last-child(6), .question-img:first-child:nth-last-child(6) ~ .question-img {
     width: 30%;
 }
 
-.question-img:first-child:nth-last-child(4), .question-img:first-child:nth-last-child(4)~.question-img {
+.question-img:first-child:nth-last-child(4), .question-img:first-child:nth-last-child(4) ~ .question-img {
     width: 45%;
 }
 
-.question-img:first-child:nth-last-child(3), .question-img:first-child:nth-last-child(3)~.question-img {
+.question-img:first-child:nth-last-child(3), .question-img:first-child:nth-last-child(3) ~ .question-img {
     width: 30%;
 }
 
-.question-img:first-child:nth-last-child(2), .question-img:first-child:nth-last-child(2)~.question-img {
+.question-img:first-child:nth-last-child(2), .question-img:first-child:nth-last-child(2) ~ .question-img {
     width: 45%;
 }
 
-#spinner, #hint {
+.spinner, #hint {
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -ms-transition: all 0.4s ease-in-out;
@@ -189,7 +234,7 @@ form input:not([type='submit']) {
     vertical-align: middle;
 }
 
-img {
+.question-img img {
     text-justify: auto;
     width: 90%;
     height: auto;
@@ -201,7 +246,7 @@ img {
     border-bottom: 1px dotted;
 }
 
-#spinner {
+.spinner {
     width: 25px;
     height: 25px;
     margin-right: 10px;
@@ -216,6 +261,11 @@ img {
     -moz-animation: circle infinite .75s linear;
     animation: circle infinite .75s linear;
     border-top: 4px solid #a3d1c7;
+}
+
+.spinner.loading {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Hint Loading effect */
@@ -375,6 +425,6 @@ div.highlight {
     box-shadow: inset 1px 1px 6px #df744a;
 }
 
-.bold-text{
+.bold-text {
     font-weight: bold
 }

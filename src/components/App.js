@@ -5,8 +5,8 @@ import WelcomePage from './WelcomePage.js'
 import FinalPage from './FinalPage.js'
 import PrivateRoute from './PrivateRoute.js'
 import {fetchSession} from '../api/api'
+import StickyHeader from './StickyHeader'
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
-
 
 class App extends React.PureComponent {
     constructor(props) {
@@ -20,7 +20,7 @@ class App extends React.PureComponent {
 
     componentDidMount() {
         fetchSession().then(response => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     response.json().then(r =>
                         !r.finished && this.setState({
                             hasPendingSession: true
@@ -38,7 +38,7 @@ class App extends React.PureComponent {
     render() {
         return (
             <div>
-                <h1 id='sticky-title'>Квест</h1>
+                <StickyHeader hasPendingSession={this.state.hasPendingSession}/>
                 <Router>
                     <Switch>
                         <Route path='/quest' component={QuestPage}/>

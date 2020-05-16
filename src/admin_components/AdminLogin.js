@@ -1,71 +1,71 @@
-import React from 'react'
-import { PureComponent } from 'react'
-import { Redirect } from 'react-router-dom'
-import { loginToAdmin } from '../api/apiAdmin'
-import styles from '../styles/input.css'
+import React, {useCallback, useState} from 'react'
+import {Redirect} from 'react-router-dom'
+import {loginToAdmin} from '../api/apiAdmin'
 
-export default class extends PureComponent {
-    constructor(props) {
-        super(props)
-        this.state = {
-            shouldRedirect: false,
-            isLoginFailed: false
-        }
+export default () => {
+
+    const [shouldRedirect, setShouldRedirect] = useState(false)
+    const [username, setUsername] = useState(null)
+    const [password, setPassword] = useState(null)
+    const [error, setError] = useState('')
+
+    function onFocus() {
+        if (error)
+            setError('')
     }
 
-    onFocus() {
-        if (this.state.isLoginFailed)
-            this.setState({ isLoginFailed: false });
+    const submitHandler = useCallback(async () => {
+            try {
+                await loginToAdmin(username, password)
+                setShouldRedirect(true)
+            } catch (e) {
+                setError("Unable to login. Please try again")
+            }
+        }, [username, password]
+    )
+
+    function onSubmit(e) {
+        e.preventDefault()
+        if (!username || !password) {
+            setError("Both username and password are mandatory")
+        } else submitHandler()
     }
 
-    onSubmit(e) {
-        e.preventDefault();
-        loginToAdmin(this.state.username, this.state.password)
-            .then(() => this.setState({ shouldRedirect: true }))
-            .catch(() => this.setState({ isLoginFailed: true }))
+    function onUsernameInput(e) {
+        setUsername(e.target.value)
     }
 
-    onUsernameInput(e) {
-        this.setState({
-            username: e.target.value,
-        })
+    function onPasswordInput(e) {
+        setPassword(e.target.value)
     }
 
-    onPasswordInput(e) {
-        this.setState({
-            password: e.target.value,
-        })
-    }
-
-    render() {
-        return (
-            <div className="regular-page">
-                {this.state.shouldRedirect && <Redirect to='/admin' />}
-                <form onSubmit={this.onSubmit.bind(this)}>
-                    <div>
-                        <label htmlFor='username'>Username</label>
-                        <input
-                            id='username'
-                            name='username'
-                            type='text'
-                            className={this.state.isLoginFailed ? 'incorrect' : ''}
-                            onFocus={this.onFocus.bind(this)}
-                            onInput={this.onUsernameInput.bind(this)} />
-                    </div>
-                    <div>
-                        <label htmlFor='password'>Password</label>
-                        <input
-                            id='password'
-                            name='password'
-                            type='password'
-                            className={this.state.isLoginFailed ? 'incorrect' : ''}
-                            onFocus={this.onFocus.bind(this)}
-                            onInput={this.onPasswordInput.bind(this)} />
-                    </div>
-                    <div><input type='submit' className="regular-button" value='Submit' /></div>
-                    {this.state.isLoginFailed && <div className='error-message'>invalid username or password</div>}
-                </form>
-            </div>
-        )
-    }
+    return (
+        <div className="regular-page">
+            {shouldRedirect && <Redirect to='/admin'/>}
+            <form onSubmit={onSubmit}>
+                <div className="input-block">
+                    <label htmlFor='username'>Username</label>
+                    <input
+                        id='username'
+                        name='username'
+                        type='text'
+                        className={error ? 'incorrect' : ''}
+                        onFocus={onFocus}
+                        onInput={onUsernameInput}/>
+                </div>
+                <div className="input-block">
+                    <label htmlFor='password'>Password</label>
+                    <input
+                        id='password'
+                        name='password'
+                        type='password'
+                        className={error ? 'incorrect' : ''}
+                        onFocus={onFocus}
+                        onInput={onPasswordInput}/>
+                </div>
+                <div><input type='submit' className="regular-button" value='Submit'/></div>
+                {error && <div className='error-message'>{error}</div>}
+            </form>
+        </div>
+    )
 }
