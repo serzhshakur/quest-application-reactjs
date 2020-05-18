@@ -6,9 +6,10 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    entry: {
-        app: './src/index.js'
-    },
+    entry: [
+        'regenerator-runtime/runtime',
+        './src/index.js'
+    ],
     output: {
         filename: 'index.bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -21,19 +22,16 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
-                    options: { presets: ['env', 'react', 'stage-2'] }
+                    options: {presets: ['env', 'react', 'stage-2']}
                 },
             },
             {
                 test: /\.css$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    {
-                        loader: "css-loader", options: {
-                            minimize: true
-                        }
-                    }
-                ]
+                use: [MiniCssExtractPlugin.loader, "css-loader"]
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: ['file-loader']
             }
         ]
     },

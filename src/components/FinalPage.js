@@ -20,7 +20,7 @@ class FinalPage extends React.PureComponent {
         return (
             <div className="regular-page">
                 <p>{this.state.content.finalWords}</p>
-                <p>Командa "<span className="bold-text">{name}</span>"</p>
+                {name && <p>Командa "<span className="bold-text">{name}</span>"</p>}
                 <p className='bold-text'>Результаты:</p>
                 <p>Неверных ответов <span className="bold-text">{wrongAnswers}</span></p>
                 <p>Количество подсказок <span className="bold-text">{hintRetrievals}</span></p>

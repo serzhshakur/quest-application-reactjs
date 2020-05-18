@@ -18,7 +18,7 @@ export function fetchHint() {
 
 export function fetchIntro() {
     return fetch(`${baseUrl}/questions/intro`, {credentials: 'include'})
-        .then(response => response.text())
+        .then(response => response.json())
 }
 
 export function fetchSession() {
