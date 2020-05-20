@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
     entry: [
         'regenerator-runtime/runtime',
-        './src/index.js'
+        './src/index.tsx'
     ],
     output: {
         filename: 'index.bundle.js',

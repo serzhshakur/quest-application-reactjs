@@ -21,10 +21,6 @@ export function fetchIntro() {
         .then(response => response.json())
 }
 
-export function fetchSession() {
-    return fetch(`${baseUrl}/session`, {credentials: 'include'})
-}
-
 export function updateSession(parameters) {
     const options = {
         method: "PUT",
