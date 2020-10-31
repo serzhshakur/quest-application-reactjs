@@ -5,6 +5,6 @@ export type SessionResponse = {
     finished?: Date
 }
 
-export async function fetchSession() {
+export async function fetchSession(): Promise<Response> {
     return await fetch(`${baseUrl}/session`, {credentials: "include"});
 }

@@ -19,6 +19,7 @@ const config: webpack.Configuration = {
         rules: [
             {
                 test: /\.[tj]sx?$/,
+                exclude: /node_modules/,
                 include: [path.resolve(__dirname, "src")],
                 loader: "babel-loader",
             },
@@ -50,7 +51,6 @@ const config: webpack.Configuration = {
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: ["dist"],
         }),
-
         new webpack.DefinePlugin({
             '__API_HOST': JSON.stringify(process.env.QUESTS_API_HOST)
         }),
