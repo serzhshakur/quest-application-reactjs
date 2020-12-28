@@ -40,7 +40,6 @@ const config: webpack.Configuration = {
     devServer: {
         port: 8081,
         historyApiFallback: true,
-        inline: true,
         hot: true
     },
     plugins: [
@@ -54,7 +53,7 @@ const config: webpack.Configuration = {
         new webpack.DefinePlugin({
             '__API_HOST': JSON.stringify(process.env.QUESTS_API_HOST)
         }),
-        // new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin()
     ]
 }
 

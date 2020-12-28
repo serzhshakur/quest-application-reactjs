@@ -7,6 +7,8 @@ import Accordion from './Accordion.js'
 
 
 export default class extends PureComponent {
+    QUESTIONS_ARRAY_NAME;
+
     constructor(props) {
         super(props)
         this.QUESTIONS_ARRAY_NAME = 'questions'
@@ -84,34 +86,34 @@ export default class extends PureComponent {
 
                 {shouldRedirectBack && <Redirect to='/admin' />}
 
-                <button onClick={this.toggleEditMode.bind(this)} className="admin-button">Edit</button>
+                <button onClick={this.toggleEditMode.bind(this)} className="admin-button">Редактировать</button>
 
                 {quest &&
                     <div className='quest-props'>
 
                         <EditableEntry
-                            title='Quest name:'
+                            title='Название квеста:'
                             content={quest.name}
                             unsavedContent={unsavedQuest.name}
                             propagateContent={content => this.setNewValue('name', content)}
                             isEditMode={isEditMode} />
 
                         <EditableEntry
-                            title='Quest id:'
+                            title='ID квеста:'
                             content={quest.id}
                             unsavedContent={unsavedQuest.id}
                             propagateContent={content => this.setNewValue('id', content)}
                             isEditMode={isEditMode} />
 
                         <EditableEntry
-                            title='Quest intro:'
+                            title='Вводные слова:'
                             content={quest.intro}
                             unsavedContent={unsavedQuest.intro}
                             propagateContent={content => this.setNewValue('intro', content)}
                             isEditMode={isEditMode} />
 
                         <EditableEntry
-                            title='Final words:'
+                            title='Заключительные слова:'
                             content={quest.finalWords}
                             unsavedContent={unsavedQuest.finalWords}
                             propagateContent={content => this.setNewValue('finalWords', content)}
@@ -119,7 +121,7 @@ export default class extends PureComponent {
 
                         <div className='accordion-holder'>
                             <Accordion
-                                title='Questions:'
+                                title='Вопросы:'
                                 isEditMode={isEditMode}
                                 content={quest.questions ? quest.questions : []}
                                 unsavedContent={unsavedQuest.questions ? unsavedQuest.questions : []}
@@ -132,7 +134,7 @@ export default class extends PureComponent {
                     </div>}
 
                 <button className="admin-button" onClick={this.goBack.bind(this)}>{'<'}</button>
-                <button className="admin-button" onClick={this.submitChanges.bind(this)}>Save</button>
+                <button className="admin-button" onClick={this.submitChanges.bind(this)}>Сохранить</button>
 
             </div>
         )

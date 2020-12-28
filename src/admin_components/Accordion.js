@@ -32,7 +32,7 @@ export default class extends React.Component {
                     return (
                         <Panel
                             key={__id}
-                            title={`Item ${index + 1}`}
+                            title={`Вопрос ${index + 1}`}
                             activeTab={activeTab}
                             index={index}
                             isEditMode={isEditMode}

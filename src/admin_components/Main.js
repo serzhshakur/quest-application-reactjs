@@ -45,17 +45,17 @@ class Main extends React.PureComponent {
                                 >
                                     <div className="quests-item-buttons">
                                         <button className='action-button'>
-                                            <Link to={`/admin/edit-quest/${id}`}>Open</Link>
+                                            <Link to={`/admin/edit-quest/${id}`}>Редактир.</Link>
                                         </button>
                                         <button className='action-button'>
                                             <Link to={{
                                                 pathname: `/admin/quest-statistics/${id}`,
                                                 state: {questName: name}
-                                            }}>Statistics</Link>
+                                            }}>Свойства</Link>
                                         </button>
                                         <ActionButton
                                             className='action-button'
-                                            title="Delete"
+                                            title="Удалить"
                                             action={() => this.doQuestDeletion(id)}
                                         />
                                     </div>
@@ -66,7 +66,7 @@ class Main extends React.PureComponent {
 
                         <Link to='/admin/create-quest'>
                             <button id='submit-new-quest' className="admin-button">
-                                Create new quest
+                                Новый квест
                             </button>
                         </Link>
                     </div>

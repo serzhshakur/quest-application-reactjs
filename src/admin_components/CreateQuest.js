@@ -8,7 +8,6 @@ export default class extends PureComponent {
         this.state = {
             values: {
                 name: '',
-                id: ''
             },
             shouldRedirect: false,
             error: {
@@ -71,19 +70,7 @@ export default class extends PureComponent {
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <div>
                         <div>
-                            <label htmlFor='id'>Quest id</label>
-                        </div>
-                        <input
-                            id='id'
-                            name='id'
-                            type='text'
-                            onInput={this.onInput.bind(this)}
-                            className={this.state.error.targets.includes('id') ? 'incorrect' : ''}
-                        />
-                    </div>
-                    <div>
-                        <div>
-                            <label htmlFor='name'>Quest name</label>
+                            <label htmlFor='name'>Название квеста</label>
                         </div>
                         <input
                             id='name'
