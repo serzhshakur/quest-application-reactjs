@@ -1,6 +1,6 @@
 .admin-page {
-    margin: 8vh 2vw;
-    padding: 1vh 1vw;
+    margin: 10px 5px;
+    padding: 3px;
 }
 
 .admin-button {
@@ -17,8 +17,7 @@
 }
 
 .prop-content {
-    padding: 2vh 4vw;
-    margin: 1vh 1vw;
+    padding: 7px 3px;
     white-space: pre-wrap;
 }
 
@@ -81,11 +80,11 @@
 }
 
 .quest-props {
-    margin: 3vh 4vw;
+    margin: 10px 15px;
 }
 
 .quest-prop {
-    margin: 5vh 0;
+    margin: 25px 0;
 }
 
 .prop-title {
