@@ -1,6 +1,7 @@
 import React from 'react'
 import {fetchFinalWords} from '../api/api.js'
 import {calculateTime} from '../utils/timeUtils'
+import ReactMarkdown from 'react-markdown';
 
 class FinalPage extends React.PureComponent {
     constructor(props) {
@@ -19,7 +20,7 @@ class FinalPage extends React.PureComponent {
         const {hours, minutes, seconds} = calculateTime(time);
         return (
             <div className="regular-page">
-                <p>{this.state.content.finalWords}</p>
+                <ReactMarkdown>{this.state.content.finalWords}</ReactMarkdown>
                 {name && <p>Командa "<span className="bold-text">{name}</span>"</p>}
                 <p className='bold-text'>Результаты:</p>
                 <p>Неверных ответов <span className="bold-text">{wrongAnswers}</span></p>

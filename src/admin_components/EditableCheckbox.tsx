@@ -1,27 +1,26 @@
 import React, {ChangeEvent, FC} from "react"
 
-type EditableEntityProps = {
+ type EntityProps = {
     name: string,
-    content: string | boolean,
+    value: boolean,
     label: string,
     isEditMode: boolean,
     onChangeFunc: (event: ChangeEvent<HTMLInputElement>) => void,
 }
 
-const EditableCheckbox: FC<EditableEntityProps> = (props) => {
-    const {isEditMode, onChangeFunc, name, label, content} = props;
-    const booleanValue = content as boolean;
+const EditableCheckbox: FC<EntityProps> = (props) => {
+    const {isEditMode, onChangeFunc, name, label, value} = props;
 
     return <div className='quest-prop'>
         <label className='prop-title' htmlFor={name}>{label}</label>
         <div className='prop-content'>
             {isEditMode ? <input type="checkbox"
                                  disabled={!isEditMode}
-                                 checked={booleanValue}
+                                 checked={value}
                                  id={name}
                                  name={name}
                                  onChange={onChangeFunc}
-            /> : booleanValue ? 'да' : 'нет'}
+            /> : value ? 'да' : 'нет'}
         </div>
     </div>
 }

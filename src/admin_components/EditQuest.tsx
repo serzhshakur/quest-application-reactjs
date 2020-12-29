@@ -2,9 +2,9 @@ import React, {FC, PropsWithChildren, useCallback, useEffect, useState} from "re
 import {fetchQuest, updateQuest} from '../api/apiAdmin'
 import {RouteComponentProps} from 'react-router'
 import {Redirect} from "react-router-dom";
-import EditableEntry from "./EditableEntry";
 import Accordion from "./Accordion";
 import EditableCheckbox from "./EditableCheckbox";
+import EditableEntry from "./EditableEntryV2";
 
 const generateRandomAlphanumeric = (): string => Math.random().toString(36).substr(2, 9);
 
@@ -120,52 +120,49 @@ const EditQuest: FC = (props: RouteComponentProps<any> & PropsWithChildren<any>)
             {quest &&
             <div className='quest-props'>
 
-                <EditableEntry
-                    title='Название квеста:'
-                    content={quest.name}
-                    unsavedContent={unsavedQuest.name}
-                    propagateContent={(content: string) => setNewValue('name', content)}
-                    isEditMode={isEditMode}
+                <EditableEntry label='Название квеста:'
+                               name='name'
+                               value={unsavedQuest.name}
+                               onChangeFunc={event => setNewValue('name', event.target.value)}
+                               isEditMode={isEditMode}
                 />
 
-                <EditableEntry
-                    title='Вводные слова:'
-                    unsavedContent={unsavedQuest.intro}
-                    propagateContent={(content: string) => setNewValue('intro', content)}
-                    isEditMode={isEditMode}
+                <EditableEntry label='Вводные слова:'
+                               name='intro'
+                               value={unsavedQuest.intro}
+                               onChangeFunc={event => setNewValue('intro', event.target.value)}
+                               isEditMode={isEditMode}
                 />
 
                 <EditableCheckbox name='isTeamNameRequired'
-                                  content={unsavedQuest.isTeamNameRequired}
+                                  value={unsavedQuest.isTeamNameRequired}
                                   label='Спрашивать имя/название команды?'
                                   isEditMode={isEditMode}
                                   onChangeFunc={event => setNewValue('isTeamNameRequired', event.target.checked)}
                 />
 
                 <EditableCheckbox name='isTeamNameRequired'
-                                  content={unsavedQuest.isPhoneRequired}
+                                  value={unsavedQuest.isPhoneRequired}
                                   label='Спрашивать номер телефона?'
                                   isEditMode={isEditMode}
                                   onChangeFunc={event => setNewValue('isPhoneRequired', event.target.checked)}
                 />
 
-                <EditableEntry
-                    title='Заключительные слова:'
-                    content={quest.finalWords}
-                    unsavedContent={unsavedQuest.finalWords}
-                    propagateContent={(content: string) => setNewValue('finalWords', content)}
-                    isEditMode={isEditMode}
+                <EditableEntry label='Заключительные слова:'
+                               name='finalWords'
+                               value={unsavedQuest.finalWords}
+                               onChangeFunc={event => setNewValue('finalWords', event.target.value)}
+                               isEditMode={isEditMode}
                 />
 
                 <div className='accordion-holder'>
-                    <Accordion
-                        title='Вопросы:'
-                        isEditMode={isEditMode}
-                        content={quest.questions}
-                        unsavedContent={unsavedQuest.questions}
-                        propagateArrayValue={setNewValueForQuestionsItem}
-                        removeItem={removeItemFromQuestionsArray}
-                        addItem={addItemToQuestionsArray}
+                    <Accordion title='Вопросы:'
+                               isEditMode={isEditMode}
+                               content={quest.questions}
+                               unsavedContent={unsavedQuest.questions}
+                               propagateArrayValue={setNewValueForQuestionsItem}
+                               removeItem={removeItemFromQuestionsArray}
+                               addItem={addItemToQuestionsArray}
                     />
                 </div>
             </div>

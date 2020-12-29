@@ -3,6 +3,7 @@ import {updateSession} from '../api/api.js'
 import {Redirect} from "react-router-dom";
 import {fetchIntro} from "../api/api";
 import PageInputBlock from "./PageInputBlock";
+import ReactMarkdown from 'react-markdown';
 
 export default (props) => {
     const [intro, setIntro] = useState('')
@@ -82,7 +83,9 @@ export default (props) => {
 
     return canProceed ? (<Redirect to={props.redirectPath}/>) : (
         <div className="regular-page">
-            <div id='introductory-paragraph' dangerouslySetInnerHTML={{__html: intro}}/>
+            <div id='introductory-paragraph'>
+                <ReactMarkdown>{intro}</ReactMarkdown>
+            </div>
             <form onSubmit={submit}>
                 {isTeamNameRequired && <PageInputBlock
                     label="Введите свое имя или имя Вашей команды"
