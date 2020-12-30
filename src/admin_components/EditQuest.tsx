@@ -6,7 +6,7 @@ import Accordion from "./Accordion";
 import EditableCheckbox from "./EditableCheckbox";
 import EditableEntry from "./EditableEntryV2";
 
-const generateRandomAlphanumeric = (): string => Math.random().toString(36).substr(2, 9);
+export const generateRandomAlphanumeric = (): string => Math.random().toString(36).substr(2, 9);
 
 type QuestQuestion = {
     text: string,
