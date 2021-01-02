@@ -428,3 +428,8 @@ div.highlight {
 .bold-text {
     font-weight: bold
 }
+
+.donation {
+    font-size: 4vw;
+    color: #243a80;
+}

@@ -24,11 +24,12 @@ type Quest = {
     finalWords: string,
     intro: string,
     isTeamNameRequired: boolean,
+    showDonationSection: boolean,
     isPhoneRequired: boolean,
     questions: QuestQuestion[]
 }
 
-type QuestProp = 'name' | 'id' | 'finalWords' | 'intro' | 'isTeamNameRequired' | 'isPhoneRequired' | 'questions'
+type QuestProp = 'name' | 'id' | 'finalWords' | 'intro' | 'isTeamNameRequired' | 'isPhoneRequired' | 'showDonationSection' | 'questions'
 
 const EditQuest: FC = (props: RouteComponentProps<any> & PropsWithChildren<any>) => {
     const defaultQuest: Quest = {
@@ -37,6 +38,7 @@ const EditQuest: FC = (props: RouteComponentProps<any> & PropsWithChildren<any>)
         finalWords: "",
         intro: "",
         isTeamNameRequired: false,
+        showDonationSection: false,
         isPhoneRequired: false,
         questions: []
     }
@@ -141,11 +143,18 @@ const EditQuest: FC = (props: RouteComponentProps<any> & PropsWithChildren<any>)
                                   onChangeFunc={event => setNewValue('isTeamNameRequired', event.target.checked)}
                 />
 
-                <EditableCheckbox name='isTeamNameRequired'
+                <EditableCheckbox name='isPhoneRequired'
                                   value={unsavedQuest.isPhoneRequired}
                                   label='Спрашивать номер телефона?'
                                   isEditMode={isEditMode}
                                   onChangeFunc={event => setNewValue('isPhoneRequired', event.target.checked)}
+                />
+
+                <EditableCheckbox name='showDonationSection'
+                                  value={unsavedQuest.showDonationSection}
+                                  label='Пожертвования?'
+                                  isEditMode={isEditMode}
+                                  onChangeFunc={event => setNewValue('showDonationSection', event.target.checked)}
                 />
 
                 <EditableEntry label='Заключительные слова:'
