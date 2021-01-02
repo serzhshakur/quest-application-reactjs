@@ -47,6 +47,7 @@ export default class extends React.Component {
                                         return Array.isArray(value)
                                             ? <EditableArrayEntry
                                                 name={key}
+                                                key={idx}
                                                 values={value}
                                                 isEditMode={isEditMode}
                                                 onChangeFunc={content => this.props.propagateArrayValue(__id, key, content)}
