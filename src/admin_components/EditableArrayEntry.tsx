@@ -55,24 +55,26 @@ const EditableArrayEntry: FC<EntityProps> = (props) => {
     return <div className='quest-prop'>
         <div className='prop-title'>{name}</div>
         <div className='prop-content'>
-            {Array.from(unsavedValues.entries()).map(([key, value]) =>
-                <div key={key}>
-                    {isEditMode
-                        ? <div className='panel-label-container'>
-                            <input
-                                type='url'
-                                value={value}
-                                onChange={event => editValue(key, event.target.value)}
-                                onBlur={flushValues}
-                            />
-                            <button className='panel-remove-button' onClick={() => removeValue(key)}>
-                                {isEditMode ? '⨯' : ''}
-                            </button>
-                        </div>
-                        : <a href={value}>{value.split('/').pop()}</a>
-                    }
-                </div>
-            )}
+            <ul>
+                {Array.from(unsavedValues.entries()).map(([key, value]) =>
+                    <li key={key}>
+                        {isEditMode
+                            ? <div className='panel-label-container'>
+                                <input
+                                    type='url'
+                                    value={value}
+                                    onChange={event => editValue(key, event.target.value)}
+                                    onBlur={flushValues}
+                                />
+                                <button className='panel-remove-button' onClick={() => removeValue(key)}>
+                                    {isEditMode ? '⨯' : ''}
+                                </button>
+                            </div>
+                            : <a href={value}>{value.split('/').pop()}</a>
+                        }
+                    </li>
+                )}
+            </ul>
         </div>
         {isEditMode && <button id='add-new-item' onClick={addValue}>+</button>}
     </div>

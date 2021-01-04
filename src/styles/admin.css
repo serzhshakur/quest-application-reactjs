@@ -44,6 +44,15 @@
     text-decoration: underline;
 }
 
+.prop-content li {
+    margin: 10px;
+    list-style-type: circle;
+}
+
+.prop-content ul {
+    padding-left: 12px;
+}
+
 .prop-content a:hover {
     color: var(--color-dark);
 }

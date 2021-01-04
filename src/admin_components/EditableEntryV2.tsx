@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useEffect, useRef, useState} from "react"
+import React, {ChangeEvent, FC, useEffect, useRef} from "react"
 import ReactMarkdown from 'react-markdown'
 
 type EntityProps = {
@@ -12,14 +12,16 @@ type EntityProps = {
 const EditableEntryV2: FC<EntityProps> = (props) => {
     const {isEditMode, onChangeFunc, name, label, value} = props;
     const ref = useRef<HTMLTextAreaElement>(null);
-    const [height, setHeight] = useState<string>('auto');
 
-    const padding = 13;
+    const padding = 10;
 
     useEffect(() => {
-            let scrollHeight = ref.current?.scrollHeight;
-            let cssHeight = scrollHeight ? `${scrollHeight - padding * 2}px` : 'auto';
-            setHeight(cssHeight);
+            if (null !== ref.current) {
+                ref.current.style.height = '1px';
+
+                let scrollHeight = ref.current.scrollHeight;
+                ref.current.style.height = `${scrollHeight - padding * 2}px`;
+            }
         }, [value, isEditMode]
     )
 
@@ -34,7 +36,7 @@ const EditableEntryV2: FC<EntityProps> = (props) => {
                     name={name}
                     onChange={onChangeFunc}
                     value={value}
-                    style={{height: height, padding: padding}}
+                    style={{padding: padding}}
                 />
                 : <ReactMarkdown>{value}</ReactMarkdown>}
         </div>
