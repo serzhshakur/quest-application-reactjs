@@ -11,7 +11,7 @@ const DonationSection: FC<Props> = ({isShown}) => {
         <form action="https://www.paypal.com/donate" method="post" target="_top">
             <input type="hidden" name="hosted_button_id" value="2BN66UWUW73W6"/>
             <input type="image"
-                   src="https://common-stuff.s3.eu-central-1.amazonaws.com/paypal_button_cards.png"
+                   src="https://common-stuff.s3.eu-central-1.amazonaws.com/paypal_button_cards_2.png"
                    name="submit"
                    title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button"
                    style={{border: 0}}

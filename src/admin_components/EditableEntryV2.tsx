@@ -26,15 +26,17 @@ const EditableEntryV2: FC<EntityProps> = (props) => {
     return <div className='quest-prop'>
         <label className='prop-title' htmlFor={name}>{label}</label>
         <div className='prop-content'>
-            {isEditMode ? <textarea
-                disabled={!isEditMode}
-                ref={ref}
-                id={name}
-                name={name}
-                onChange={onChangeFunc}
-                value={value}
-                style={{height: height, padding: padding}}
-            /> : <ReactMarkdown>{value}</ReactMarkdown>}
+            {isEditMode
+                ? <textarea
+                    disabled={!isEditMode}
+                    ref={ref}
+                    id={name}
+                    name={name}
+                    onChange={onChangeFunc}
+                    value={value}
+                    style={{height: height, padding: padding}}
+                />
+                : <ReactMarkdown>{value}</ReactMarkdown>}
         </div>
     </div>
 }
