@@ -10,6 +10,9 @@
   "author": "Sergey Shakur",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "fetch": "^1.1.0",
     "npm": "^6.14.5",
     "react-animate-height": "^2.0.23",

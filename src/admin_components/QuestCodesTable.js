@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {fetchCodes, generateNewCode} from '../api/apiAdmin'
 import LoadableComponent from "./LoadableComponent";
-import CopyToClipboardSvg from "../components/svg/CopyToClipboardSvg";
+import CopyToClipboardIcon from "../components/svg/CopyToClipboardIcon";
 
 export default ({questId}) => {
 
@@ -42,7 +42,7 @@ export default ({questId}) => {
                             return (
                                 <tr key={code}>
                                     <td>{code}
-                                        <CopyToClipboardSvg valueToCopy={code}/>
+                                        <CopyToClipboardIcon valueToCopy={code}/>
                                     </td>
                                     <td>{isGiven ? 'x' : '-'}</td>
                                 </tr>
