@@ -5,30 +5,11 @@ import {Redirect} from "react-router-dom";
 import Accordion from "./Accordion";
 import EditableCheckbox from "./EditableCheckbox";
 import EditableEntry from "./EditableEntryV2";
+import {Quest, QuestQuestion} from "../types/Quest";
 
 export const generateRandomAlphanumeric = (): string => Math.random().toString(36).substr(2, 9);
 
-type QuestQuestion = {
-    text: string,
-    answer: string,
-    hint: string,
-    images?: string[],
-    __id: string,
-}
-
 type QuestQuestionProp = 'text' | 'answer' | 'hint' | 'images'
-
-type Quest = {
-    name: string,
-    id: string,
-    finalWords: string,
-    intro: string,
-    isTeamNameRequired: boolean,
-    showDonationSection: boolean,
-    isPhoneRequired: boolean,
-    questions: QuestQuestion[]
-}
-
 type QuestProp = 'name' | 'id' | 'finalWords' | 'intro' | 'isTeamNameRequired' | 'isPhoneRequired' | 'showDonationSection' | 'questions'
 
 const EditQuest: FC = (props: RouteComponentProps<any> & PropsWithChildren<any>) => {

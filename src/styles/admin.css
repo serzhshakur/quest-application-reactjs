@@ -42,6 +42,7 @@
     font-size: 14px;
     color: var(--base-font-color);
     border: none;
+    text-align: center;
 }
 
 .prop-content a {
