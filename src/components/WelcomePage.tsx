@@ -1,11 +1,16 @@
-import React, {useCallback, useEffect, useState} from 'react'
-import {updateSession} from '../api/api.js'
+import React, {ChangeEvent, FC, useCallback, useEffect, useState} from 'react'
 import {Redirect} from "react-router-dom";
-import {fetchIntro} from "../api/api";
+import {fetchIntro, updateSession, startOverSession, IntroResponse, SessionUpdateRequest} from "../api/clientApi";
 import PageInputBlock from "./PageInputBlock";
 import ReactMarkdown from 'react-markdown';
 
-export default (props) => {
+type EntityProps = {
+    redirectPath: string,
+    hasPendingSession?: boolean
+}
+
+const WelcomePage: FC<EntityProps> = ({redirectPath, hasPendingSession}) => {
+
     const [intro, setIntro] = useState('')
     const [isTeamNameRequired, setTeamNameRequired] = useState(false)
     const [isPhoneRequired, setPhoneRequired] = useState(false)
@@ -15,20 +20,18 @@ export default (props) => {
     const [isTeamNameIncorrect, setIsTeamIncorrect] = useState(false)
     const [isPhoneNumberIncorrect, setIsPhoneNumberIncorrect] = useState(false)
     const [canProceed, setCanProceed] = useState(false)
+    const [shouldStartOver, setShouldStartOver] = useState(false)
+    const [proceedWithExistingSession, setProceedWithExistingSession] = useState(false)
 
     const handleIntro = useCallback(async () => {
-            const response = await fetchIntro()
+            const response: IntroResponse = await fetchIntro()
             setIntro(response.intro)
 
-            if (response.hasOwnProperty("isTeamNameRequired")) {
+            if (response.isTeamNameRequired) {
                 setTeamNameRequired(response.isTeamNameRequired)
-            } else {
-                setTeamNameRequired(true)
             }
-            if (response.hasOwnProperty("isPhoneRequired")) {
-                setPhoneRequired(Boolean(response.isPhoneRequired))
-            } else {
-                setPhoneRequired(true)
+            if (response.isPhoneRequired) {
+                setPhoneRequired(response.isPhoneRequired)
             }
         }, []
     )
@@ -38,9 +41,14 @@ export default (props) => {
         }, []
     )
 
-    async function submit(e) {
+    const startOver = useCallback(async () => {
+        await startOverSession()
+        setShouldStartOver(true)
+    }, [shouldStartOver])
+
+    async function submit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
-        let request = {}
+        let request: SessionUpdateRequest = {}
 
         if (isTeamNameRequired) {
             if (!teamName) {
@@ -60,7 +68,7 @@ export default (props) => {
             }
         }
 
-        if (Object.keys(request).length !== 0) {
+        if (request.phone || request.name) {
             const response = await updateSession(request)
             if (response.status !== 200) {
                 const body = await response.json()
@@ -71,17 +79,17 @@ export default (props) => {
         setCanProceed(true)
     }
 
-    function onNameInput(e) {
+    function onNameInput(e: ChangeEvent<HTMLInputElement>) {
         setTeamName(e.target.value)
         setIsTeamIncorrect(false)
     }
 
-    function onPhoneInput(e) {
+    function onPhoneInput(e: ChangeEvent<HTMLInputElement>) {
         setPhoneNumber(e.target.value)
         setIsPhoneNumberIncorrect(false)
     }
 
-    return canProceed ? (<Redirect to={props.redirectPath}/>) : (
+    return canProceed ? (<Redirect to={redirectPath}/>) : (
         <div className="regular-page">
             <div id='introductory-paragraph'>
                 <ReactMarkdown>{intro}</ReactMarkdown>
@@ -89,20 +97,36 @@ export default (props) => {
             <form onSubmit={submit}>
                 {isTeamNameRequired && <PageInputBlock
                     label="Введите свое имя или имя Вашей команды"
-                    error={isTeamNameIncorrect ? "Поле не должно быть пустым" : null}
+                    error={isTeamNameIncorrect ? "Поле не должно быть пустым" : undefined}
                     onInput={onNameInput}
                 />}
                 {isPhoneRequired && <PageInputBlock
                     label="Введите контактный телефон"
                     placeholder='пример: +371 20000000'
                     pattern="\+?[0-9]{0,3}\W*(?:\d+\W*){1,}(\d{1,2})$"
-                    error={isPhoneNumberIncorrect ? "Телефонный номер должен соотетствовать формату xxxxxxxx или +ХХХ хххххх" : null}
+                    error={isPhoneNumberIncorrect ? "Телефонный номер должен соотетствовать формату xxxxxxxx или +ХХХ хххххх" : undefined}
                     onInput={onPhoneInput}
                 />}
                 <div>
-                    <input type='submit' className="regular-button" value='Продолжить'/>
+                    {proceedWithExistingSession && (<Redirect to="/quest"/>)}
+                    {hasPendingSession
+                        ? <div>
+                            <p>Продолжить начатый или начать заново?</p>
+                            <button onClick={() => setProceedWithExistingSession(true)}
+                                    className="regular-button">
+                                Продолжить начатый
+                            </button>
+                            <button onClick={startOver}
+                                    className="regular-button">
+                                Начать заново
+                            </button>
+                        </div>
+                        : <input type='submit' className="regular-button" value='Продолжить'/>
+                    }
                     {apiError ? <div className='error-message'>{apiError}</div> : null}
                 </div>
             </form>
         </div>)
 }
+
+export default WelcomePage

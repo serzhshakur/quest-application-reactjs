@@ -3,10 +3,10 @@ import RegisterPage from "./RegisterPage"
 import QuestPage from "./QuestPage"
 import WelcomePage from "./WelcomePage"
 import FinalPage from "./FinalPage"
-import PrivateRoute from "./PrivateRoute"
 import {fetchSession, SessionResponse} from "../api/clientApi"
 import StickyHeader from "./StickyHeader"
-import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom"
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
+import {Redirect} from "react-router";
 
 const App: FC = () => {
 
@@ -17,7 +17,9 @@ const App: FC = () => {
         const response = await fetchSession()
         if (response.status === 200) {
             const {finished}: SessionResponse = await response.json()
-            !finished && setHasPendingSession(true)
+            if (!finished) {
+                setHasPendingSession(true)
+            }
         }
     }, [])
 
@@ -34,19 +36,18 @@ const App: FC = () => {
             <StickyHeader hasPendingSession={hasPendingSession}/>
             <Router>
                 <Switch>
+                    <Route exact path="/">
+                        {(isRegistered || hasPendingSession)
+                            ? <Redirect to="/welcome"/>
+                            : <RegisterPage onRegisterFunc={onRegister}/>
+                        }
+                    </Route>
+                    <Route exact path="/welcome">
+                        <WelcomePage hasPendingSession={hasPendingSession}
+                                     redirectPath="/quest"/>
+                    </Route>
                     <Route path="/quest" component={QuestPage}/>
                     <Route path="/finish" component={FinalPage}/>
-                    {hasPendingSession && (<Redirect to="/quest"/>)}
-                    < PrivateRoute exact path="/"
-                                   isTrue={isRegistered}
-                                   redirectPath="/register"
-                                   component={() => (<WelcomePage redirectPath="/quest"/>)}/>
-                    <Route path="/register"
-                           render={() => (
-                               <RegisterPage
-                                   onRegister={onRegister}
-                                   redirectPath="/"/>
-                           )}/>
                 </Switch>
             </Router>
         </div>

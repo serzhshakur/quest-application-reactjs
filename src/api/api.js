@@ -16,21 +16,6 @@ export function fetchHint() {
         .then(response => response.json())
 }
 
-export function fetchIntro() {
-    return fetch(`${baseUrl}/questions/intro`, {credentials: 'include'})
-        .then(response => response.json())
-}
-
-export function updateSession(parameters) {
-    const options = {
-        method: "PUT",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(parameters),
-        credentials: 'include'
-    };
-    return fetch(`${baseUrl}/session`, options)
-}
-
 export function deleteSession() {
     const options = {
         method: "DELETE",
