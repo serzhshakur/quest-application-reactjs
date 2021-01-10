@@ -9,11 +9,9 @@ export type SessionUpdateRequest = {
 export type SessionResponse = {
     questId: string
     finished?: Date
+    isNewSession?: boolean
 }
 
-export type NewSessionResponse = {
-    isNew: boolean
-}
 
 export type IntroResponse = {
     intro: string,
@@ -21,20 +19,10 @@ export type IntroResponse = {
     isPhoneRequired?: boolean,
 }
 
-export function isNewSession(session: SessionResponse | NewSessionResponse): session is NewSessionResponse {
-    return (session as NewSessionResponse).isNew !== undefined;
-}
-
-export function isPendingSession(session: SessionResponse | NewSessionResponse): session is SessionResponse {
-    return (session as SessionResponse).questId !== undefined;
-}
-
-export async function fetchSession(): Promise<Response> {
-    return await fetch(`${baseUrl}/session`, {credentials: 'include'});
-}
-
-export async function fetchSessionForQuestId(questId: string): Promise<Response> {
-    return await fetch(`${baseUrl}/session/${questId}`, {credentials: 'include'});
+export async function fetchSession(questId?: string): Promise<Response> {
+    let options: RequestInit = {credentials: 'include'};
+    if (questId) return await fetch(`${baseUrl}/session/${questId}`, options);
+    else return await fetch(`${baseUrl}/session`, options);
 }
 
 export async function fetchIntro(): Promise<IntroResponse> {

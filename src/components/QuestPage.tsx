@@ -7,6 +7,7 @@ import {fetchQuestion, postAnswer} from '../api/api.js'
 import {Redirect} from 'react-router-dom'
 import '../styles/styles.css'
 import '../styles/input.css'
+import StickyHeader from "./StickyHeader";
 
 type SessionQuestionResponse = {
     isEnd: boolean,
@@ -60,17 +61,20 @@ const QuestV2Page: FC = () => {
     }, [answer])
 
     return question?.isEnd ? (<Redirect to='/finish'/>) : (
-        <div className='light-page'>
-            <Question text={question?.text} images={question?.images}/>
-            <AnswerForm
-                questionNumber={questionNumber}
-                isAnswerCorrect={isAnswerCorrect}
-                onInput={setAnswer}
-                onSubmit={submitAnswer}
-            />
-            <HintContainer questionNumber={questionNumber}
-                           updateHintRetrievals={setHintRetrievals}/>
-            <PenaltiesContainer wrongAnswers={wrongAnswers} hintRetrievals={hintRetrievals}/>
+        <div>
+            <StickyHeader hasPendingSession={true}/>
+            <div className='light-page'>
+                <Question text={question?.text} images={question?.images}/>
+                <AnswerForm
+                    questionNumber={questionNumber}
+                    isAnswerCorrect={isAnswerCorrect}
+                    onInput={setAnswer}
+                    onSubmit={submitAnswer}
+                />
+                <HintContainer questionNumber={questionNumber}
+                               updateHintRetrievals={setHintRetrievals}/>
+                <PenaltiesContainer wrongAnswers={wrongAnswers} hintRetrievals={hintRetrievals}/>
+            </div>
         </div>
     )
 }

@@ -1,13 +1,12 @@
 import React, {ChangeEvent, FC, useState} from 'react'
 import {validateId} from '../api/api.js'
 import PageInputBlock from "./PageInputBlock";
+import {Redirect} from "react-router";
 
-type EntityProps = {
-    onRegisterFunc: () => void
-}
-const RegisterPage: FC<EntityProps> = ({onRegisterFunc}) => {
+const RegisterPage: FC = () => {
     const [id, setId] = useState<string>()
     const [error, setError] = useState<string>()
+    const [isRegistered, setRegistered] = useState(false)
 
     async function register(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -18,7 +17,7 @@ const RegisterPage: FC<EntityProps> = ({onRegisterFunc}) => {
             if (!response.ok) {
                 const apiBody = await response.json()
                 setError(apiBody.error ? apiBody.error : "Неверный код")
-            } else onRegisterFunc()
+            } else setRegistered(true)
         }
     }
 
@@ -27,7 +26,7 @@ const RegisterPage: FC<EntityProps> = ({onRegisterFunc}) => {
         setError('')
     }
 
-    return (
+    return isRegistered ? <Redirect to='/welcome'/> : (
         <div className="regular-page">
             <p>Приветствуем вас!</p>
             <p>Для начала квеста введите пожалуйста полученный код</p>

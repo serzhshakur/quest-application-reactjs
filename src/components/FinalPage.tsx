@@ -36,7 +36,6 @@ const FinalPage: FC = () => {
 
     useEffect(() => doFetchFinalWords(), [])
 
-
     return (
         <div className="regular-page">
             {content?.finalWords && <ReactMarkdown>{content?.finalWords}</ReactMarkdown>}
