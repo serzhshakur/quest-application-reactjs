@@ -1,6 +1,6 @@
 .admin-page {
-    margin: 8vh 2vw;
-    padding: 1vh 1vw;
+    margin: 10px 5px;
+    padding: 3px;
 }
 
 .admin-button {
@@ -16,9 +16,12 @@
     color: #fff;
 }
 
+.quests-item-buttons .action-button {
+    cursor: pointer;
+}
+
 .prop-content {
-    padding: 2vh 4vw;
-    margin: 1vh 1vw;
+    padding: 7px 3px;
     white-space: pre-wrap;
 }
 
@@ -32,6 +35,31 @@
 
 .prop-content[contenteditable=true]:focus {
     background: #FBFBFA;
+}
+
+.prop-content textarea {
+    width: 90%;
+    font-size: 14px;
+    color: var(--base-font-color);
+    border: none;
+    text-align: center;
+}
+
+.prop-content a {
+    text-decoration: underline;
+}
+
+.prop-content li {
+    margin: 10px;
+    list-style-type: circle;
+}
+
+.prop-content ul {
+    padding-left: 12px;
+}
+
+.prop-content a:hover {
+    color: var(--color-dark);
 }
 
 .codes-table {
@@ -54,18 +82,9 @@
     padding: 10px;
 }
 
-.copy-link {
+.copy-to-clipboard svg {
+    color: var(--color-dark);
     cursor: pointer;
-    margin-left: 7px;
-    vertical-align: -2px;
-    font-size: 0;
-    white-space: nowrap;
-}
-
-.copy-icon {
-    display: inline-block;
-    width: auto;
-    height: 22px;
 }
 
 .stats {
@@ -81,11 +100,11 @@
 }
 
 .quest-props {
-    margin: 3vh 4vw;
+    margin: 10px 15px;
 }
 
 .quest-prop {
-    margin: 5vh 0;
+    margin: 25px 0;
 }
 
 .prop-title {

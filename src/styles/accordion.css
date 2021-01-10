@@ -57,6 +57,9 @@
     color: var(--color-light);
     background: var(--color-dark);
 }
+.action-button svg {
+    margin: 0;
+}
 .action-button-main {
     width: 23vw;
 }

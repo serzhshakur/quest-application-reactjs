@@ -1,28 +1,27 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import {CleanWebpackPlugin} from "clean-webpack-plugin";
+import path from "path";
+import webpack from "webpack";
+import HtmlWebpackPlugin from "html-webpack-plugin"
 
-module.exports = {
+const config: webpack.Configuration = {
     entry: [
-        'regenerator-runtime/runtime',
-        './src/index.js'
+        path.resolve(__dirname, 'src/index.tsx'),
     ],
     output: {
         filename: 'index_bundle.js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/'
     },
+    resolve: {
+        extensions: [".ts", ".tsx", ".js", ".jsx"],
+    },
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
+                test: /\.[tj]sx?$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env', 'react', 'stage-2']
-                    }
-                },
+                include: [path.resolve(__dirname, "src")],
+                loader: "babel-loader",
             },
             {
                 test: /\.css$/,
@@ -39,6 +38,7 @@ module.exports = {
         ]
     },
     devServer: {
+        port: 8081,
         historyApiFallback: true,
         hot: true
     },
@@ -47,10 +47,14 @@ module.exports = {
             template: 'src/index.html',
             favicon: 'src/assets/icon.png'
         }),
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: ["dist"],
+        }),
         new webpack.DefinePlugin({
             '__API_HOST': JSON.stringify(process.env.QUESTS_API_HOST)
         }),
-        new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
     ]
-};
+}
+
+export default config;

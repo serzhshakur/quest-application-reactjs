@@ -73,6 +73,15 @@ export function postQuest(questDetails) {
         .then(response => handleResponse(response).json())
 }
 
+export function cloneQuest(questId) {
+    const options = {
+        method: "POST",
+        headers: {'x-access-token': sessionStorage.token},
+    }
+    return fetch(`${baseUrl}/my-admin/quests/${questId}/clone`, options)
+        .then(response => handleResponse(response).json())
+}
+
 export function updateQuest(questId, questDetails) {
     const options = {
         method: "PUT",

@@ -32,7 +32,7 @@ export default class extends PureComponent {
                 <div
                     contentEditable={this.props.isEditMode} suppressContentEditableWarning='disabled'
                     onBlur={this.onBlur.bind(this)}
-                    className={`prop-content${this.props.content == this.props.unsavedContent ? '' : ' unsaved'}`}
+                    className={`prop-content${this.props.content === this.props.unsavedContent ? '' : ' unsaved'}`}
                     dangerouslySetInnerHTML={{ __html: this.props.unsavedContent }}
                 >
                 </div>

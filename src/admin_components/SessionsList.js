@@ -36,7 +36,7 @@ export default ({questId}) => {
 
                     return (
                         <div className="stats" key={session.created}>
-                            <h3>Имя команды: {name ? name : <i>unnamed</i>}</h3>
+                            <h3>Имя команды: {name ? name : <i>без названия</i>}</h3>
 
                             <StatsItem name="Код: " value={questCode}/>
                             <StatsItem name="Телефон: " value={phone}/>

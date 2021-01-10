@@ -6,7 +6,7 @@ export default ({name, value}) => {
             <span className="stat-name">{name}</span>
             <span className="stat-value">
                 {value === undefined
-                    ? <i>not provided</i>
+                    ? <i>не указано</i>
                     : <b>{value}</b>
                 }
             </span>
