@@ -10,7 +10,7 @@ import {Quest, QuestQuestion} from "../types/Quest";
 export const generateRandomAlphanumeric = (): string => Math.random().toString(36).substr(2, 9);
 
 type QuestQuestionProp = 'text' | 'answer' | 'hint' | 'images'
-type QuestProp = 'name' | 'id' | 'finalWords' | 'intro' | 'isTeamNameRequired' | 'isPhoneRequired' | 'showDonationSection' | 'questions'
+type QuestProp = 'name' | 'id' | 'finalWords' | 'intro' | 'isTeamNameRequired' | 'isPhoneRequired' | 'isCodeRequired'| 'showDonationSection' | 'questions'
 
 const EditQuest: FC = (props: RouteComponentProps<any> & PropsWithChildren<any>) => {
     const defaultQuest: Quest = {
@@ -21,6 +21,7 @@ const EditQuest: FC = (props: RouteComponentProps<any> & PropsWithChildren<any>)
         isTeamNameRequired: false,
         showDonationSection: false,
         isPhoneRequired: false,
+        isCodeRequired: false,
         questions: []
     }
 
@@ -115,6 +116,13 @@ const EditQuest: FC = (props: RouteComponentProps<any> & PropsWithChildren<any>)
                                value={unsavedQuest.intro}
                                onChangeFunc={event => setNewValue('intro', event.target.value)}
                                isEditMode={isEditMode}
+                />
+
+                <EditableCheckbox name='isCodeRequired'
+                                  value={unsavedQuest.isCodeRequired ?? true}
+                                  label='Для прохождения нужен код?'
+                                  isEditMode={isEditMode}
+                                  onChangeFunc={event => setNewValue('isCodeRequired', event.target.checked)}
                 />
 
                 <EditableCheckbox name='isTeamNameRequired'

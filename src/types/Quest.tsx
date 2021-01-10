@@ -14,5 +14,6 @@ export type Quest = {
     isTeamNameRequired: boolean,
     showDonationSection: boolean,
     isPhoneRequired: boolean,
+    isCodeRequired?: boolean,
     questions: QuestQuestion[]
 }
