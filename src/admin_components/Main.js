@@ -4,10 +4,10 @@ import {cloneQuest, deleteQuest, fetchQuests} from '../api/apiAdmin'
 import Section from "./Section.js";
 import QuestsListAccordion from './QuestsListAccordion';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCog, faClone, faPen, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+import {faClone, faCog, faPen, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import ActionButton from "./ActionButton";
 
-import styles from '../styles/admin.css';
+import '../styles/admin.css';
 
 class Main extends React.PureComponent {
     constructor(props) {

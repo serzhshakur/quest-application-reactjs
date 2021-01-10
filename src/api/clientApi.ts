@@ -1,4 +1,4 @@
-const baseUrl = __API_HOST;
+export const baseUrl = __API_HOST;
 
 export type SessionUpdateRequest = {
     name?: string,
