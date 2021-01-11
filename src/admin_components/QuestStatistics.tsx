@@ -1,12 +1,13 @@
-import React, {FC, useState} from 'react'
+import React, {FC, useCallback, useEffect, useState} from 'react'
 import QuestCodesTable from "./QuestCodesTable";
 import SessionsList from "./SessionsList";
 import CopyToClipboardIcon from "../components/svg/CopyToClipboardIcon";
 import {baseUrl} from "../api/clientApi";
-import {Redirect, useLocation, useParams} from "react-router";
+import {useHistory, useLocation, useParams} from "react-router";
+import {fetchQuest} from "../api/apiAdmin";
 
 type PathParams = {
-    questId?: string
+    questId: string
 }
 
 interface LocationState {
@@ -15,24 +16,32 @@ interface LocationState {
 
 const QuestionStatistics: FC = () => {
 
-    let {questId} = useParams<PathParams>();
-    let {state} = useLocation<LocationState>();
+    const {questId} = useParams<PathParams>();
+    const {state} = useLocation<LocationState>();
+    const history = useHistory();
+    const directLink = baseUrl.replace(/\/+$/, '') + '/quest/' + questId
 
-    const [shouldRedirectBack, setShouldRedirectBack] = useState(false)
+    const [isCodeRequired, setCodeRequired] = useState<boolean | null>(null)
 
-    function goBack() {
-        setShouldRedirectBack(true);
-    }
+    const doFetchQuest = useCallback(() => {
+        fetchQuest(questId)
+            .then(quest => setCodeRequired(quest.isCodeRequired ?? true))
+    }, [questId])
+
+    useEffect(() => doFetchQuest(), [questId])
+
+    const goBack = useCallback(() => {
+        history.goBack()
+    }, [questId])
 
     return (
         <div className='admin-page'>
-            {shouldRedirectBack && <Redirect to='/admin'/>}
             <h1>{state.questName}</h1>
-            <p>Копировать прямую ссылку:<CopyToClipboardIcon valueToCopy={baseUrl.replace(/\/+$/, '') + '/' + questId}/>
-            </p>
-            <QuestCodesTable questId={questId}/>
+            {(isCodeRequired !== null && !isCodeRequired) &&
+            <p>Копировать прямую ссылку:<CopyToClipboardIcon valueToCopy={directLink}/></p>}
+            <button className="admin-button" onClick={goBack}>{'< назад'}</button>
+            {isCodeRequired && <QuestCodesTable questId={questId}/>}
             <SessionsList questId={questId}/>
-            <button className="admin-button" onClick={goBack}>{'<'}</button>
         </div>
     )
 }

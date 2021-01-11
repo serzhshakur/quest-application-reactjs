@@ -10,6 +10,7 @@ const App: FC = () => {
 
     return <Router>
         <Switch>
+            <Route exact path="/quest/:questId"> <WelcomePage/> </Route>
             <Route path="/quest">
                 <QuestPage/>
             </Route>
