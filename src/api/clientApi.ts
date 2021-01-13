@@ -9,7 +9,8 @@ export type SessionUpdateRequest = {
 export type SessionResponse = {
     questId: string
     finished?: Date
-    isNewSession?: boolean
+    isNewSession?: boolean,
+    name?: string
 }
 
 

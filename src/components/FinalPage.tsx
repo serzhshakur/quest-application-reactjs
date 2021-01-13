@@ -9,7 +9,7 @@ type FinalWords = {
     wrongAnswers: number,
     hintRetrievals: number,
     time: number,
-    name: string,
+    name?: string,
     showDonationSection?: boolean
 }
 
@@ -48,8 +48,8 @@ const FinalPage: FC = () => {
             </span>
             </p>
 
-            <DonationSection isShown={content?.showDonationSection ?? false}/>
-
+            <DonationSection isShown={content?.showDonationSection ?? false}
+                             name={content?.name}/>
         </div>
     )
 }

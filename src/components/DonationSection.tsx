@@ -1,9 +1,10 @@
 import React, {FC} from "react"
 
 type Props = {
-    isShown: boolean
+    isShown: boolean,
+    name?: string
 }
-const DonationSection: FC<Props> = ({isShown}) => {
+const DonationSection: FC<Props> = ({isShown, name}) => {
 
     return isShown ? <div className='donation'>
         <p style={{fontWeight: 'bold'}}>Понравился квест?</p>
@@ -16,7 +17,7 @@ const DonationSection: FC<Props> = ({isShown}) => {
                    title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button"
                    style={{border: 0}}
             />
-            <input type="hidden" name="item_name" value="test"/>
+            {name && <input type="hidden" name="item_name" value={`Спасибо за квест от ${name}`}/>}
             <img alt=""
                  src="https://www.paypal.com/en_LV/i/scr/pixel.gif" width="1" height="1"
                  style={{border: 0}}
