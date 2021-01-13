@@ -32,7 +32,7 @@ const WelcomePage: FC = () => {
     const [apiError, setApiError] = useState('')
 
     const [needToAuthorize, setNeedToAuthorize] = useState(false)
-    const [hasPendingSession, setHasPendingSession] = useState(false)
+    const [hasActiveSession, setHasActiveSession] = useState(false)
 
     const [shouldProceed, setShouldProceed] = useState(false)
     const [shouldRestartSession, setShouldRestartSession] = useState(false)
@@ -56,7 +56,7 @@ const WelcomePage: FC = () => {
         if (response.ok) {
             const session: SessionResponse = await response.json()
             if (!session.isNewSession && !session.finished) {
-                setHasPendingSession(true)
+                setHasActiveSession(true)
             }
             introFetcher().catch(() => setNeedToAuthorize(true))
         } else setNeedToAuthorize(true)
@@ -123,20 +123,20 @@ const WelcomePage: FC = () => {
                     <ReactMarkdown>{intro}</ReactMarkdown>
                 </div>
                 <form onSubmit={submit}>
-                    {isTeamNameRequired && <PageInputBlock
-                        label="Введите свое имя или имя Вашей команды"
-                        error={isTeamNameIncorrect ? "Поле не должно быть пустым" : undefined}
-                        onInput={onNameInput}
+                    {(!hasActiveSession && isTeamNameRequired)
+                    && <PageInputBlock label="Введите свое имя или имя Вашей команды"
+                                       error={isTeamNameIncorrect ? "Поле не должно быть пустым" : undefined}
+                                       onInput={onNameInput}
                     />}
-                    {isPhoneRequired && <PageInputBlock
-                        label="Введите контактный телефон"
-                        placeholder='пример: +371 20000000'
-                        pattern="\+?[0-9]{0,3}\W*(?:\d+\W*){1,}(\d{1,2})$"
-                        error={isPhoneNumberIncorrect ? "Телефонный номер должен соотетствовать формату xxxxxxxx или +ХХХ хххххх" : undefined}
-                        onInput={onPhoneInput}
+                    {(!hasActiveSession && isPhoneRequired)
+                    && <PageInputBlock label="Введите контактный телефон"
+                                       placeholder='пример: +371 20000000'
+                                       pattern="\+?[0-9]{0,3}\W*(?:\d+\W*){1,}(\d{1,2})$"
+                                       error={isPhoneNumberIncorrect ? "Телефонный номер должен соотетствовать формату xxxxxxxx или +ХХХ хххххх" : undefined}
+                                       onInput={onPhoneInput}
                     />}
                     <div>
-                        {hasPendingSession
+                        {hasActiveSession
                             ? <div>
                                 <p>Продолжить начатый или начать заново?</p>
                                 <button onClick={() => setShouldContinueSession(true)}
